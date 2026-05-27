@@ -60,6 +60,14 @@ CHILD_COLORS = {
     "Property annual taxes": ["#B7791F", "#D69E2E"],
 }
 
+ITEM_COLORS = {
+    "ATOL": "#005A8D",
+}
+
+ITEM_STYLE_OVERRIDES = {
+    "ATOL": {"borderColor": "#005A8D", "borderWidth": 1.8},
+}
+
 
 def node(name, value_m, children=None, note=None):
     item = {
@@ -146,8 +154,8 @@ def label_size(value_m):
 
 def apply_colors(items, palette):
     for idx, item in enumerate(items):
-        color = palette[idx % len(palette)]
-        item["itemStyle"] = {"color": color}
+        color = ITEM_COLORS.get(item["name"], palette[idx % len(palette)])
+        item["itemStyle"] = {"color": color, **ITEM_STYLE_OVERRIDES.get(item["name"], {})}
         item["label"] = label_for_color(color)
         if "children" in item:
             child_palette = CHILD_COLORS.get(item["name"], palette)

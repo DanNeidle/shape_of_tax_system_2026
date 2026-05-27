@@ -2218,12 +2218,14 @@
                     "actual_m": 80,
                     "gdp_pct": 0.002726633517619676,
                     "itemStyle": {
-                      "color": "#8ECBEF"
+                      "color": "#005A8D",
+                      "borderColor": "#005A8D",
+                      "borderWidth": 1.8
                     },
                     "label": {
-                      "color": "#172033",
-                      "textBorderColor": "rgba(255,255,255,0.88)",
-                      "textBorderWidth": 3,
+                      "color": "#FFFFFF",
+                      "textBorderColor": "rgba(15,23,42,0.42)",
+                      "textBorderWidth": 2.8,
                       "show": true,
                       "formatter": "ATOL\n\u00a30.1bn",
                       "fontSize": 6,
@@ -4608,12 +4610,14 @@
                       "actual_m": 80,
                       "gdp_pct": 0.002726633517619676,
                       "itemStyle": {
-                        "color": "#8ECBEF"
+                        "color": "#005A8D",
+                        "borderColor": "#005A8D",
+                        "borderWidth": 1.8
                       },
                       "label": {
-                        "color": "#172033",
-                        "textBorderColor": "rgba(255,255,255,0.88)",
-                        "textBorderWidth": 3,
+                        "color": "#FFFFFF",
+                        "textBorderColor": "rgba(15,23,42,0.42)",
+                        "textBorderWidth": 2.8,
                         "show": true,
                         "formatter": "ATOL\n\u00a30.1bn",
                         "fontSize": 6,
@@ -6997,12 +7001,14 @@
                       "actual_m": 80,
                       "gdp_pct": 0.002726633517619676,
                       "itemStyle": {
-                        "color": "#8ECBEF"
+                        "color": "#005A8D",
+                        "borderColor": "#005A8D",
+                        "borderWidth": 1.8
                       },
                       "label": {
-                        "color": "#172033",
-                        "textBorderColor": "rgba(255,255,255,0.88)",
-                        "textBorderWidth": 3,
+                        "color": "#FFFFFF",
+                        "textBorderColor": "rgba(15,23,42,0.42)",
+                        "textBorderWidth": 2.8,
                         "show": true,
                         "formatter": "ATOL\n0.0%",
                         "fontSize": 6,
