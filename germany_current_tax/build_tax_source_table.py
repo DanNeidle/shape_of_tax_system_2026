@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE.parent / "data" / "germany_tax"
+DATA_DIR = BASE / "data"
 
 EUROSTAT_NTL = DATA_DIR / "eurostat_national_tax_lists_2025_2026-04-22.xlsx"
 BMF_CASH_TAXES = DATA_DIR / "bmf_steuereinnahmen_2024_calendar_year.xlsx"

@@ -7,7 +7,7 @@ from collections import defaultdict
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE.parent / "data" / "france_tax"
+DATA_DIR = BASE / "data"
 INPUT = DATA_DIR / "france_tax_revenue_candidate_table_2024.csv"
 OUTPUT = DATA_DIR / "france_tax_revenue_layered_2024.csv"
 GDP_EUR = 2_919_900_000_000

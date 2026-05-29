@@ -12,7 +12,7 @@ GDP_EUR_M = 2_919_900
 CPI_UPRATING_2019_TO_2024 = 1.005 * 1.016 * 1.052 * 1.049 * 1.020
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE.parent / "data" / "france_tax"
+DATA_DIR = BASE / "data"
 EUROSTAT_NTL = DATA_DIR / "eurostat_national_tax_lists_2025_2026-04-22.xlsx"
 COUR_LOW_YIELD = DATA_DIR / "20250417-annexe-listing-des-taxes-concernees.xlsx"
 OUTPUT = DATA_DIR / "france_tax_revenue_candidate_table_2024.csv"

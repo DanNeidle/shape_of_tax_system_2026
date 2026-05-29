@@ -1,0 +1,32 @@
+country,ref_area,tax_count,tax_gdp_pct,tax_gdp_year,tax_gdp_source,color
+Estonia,EST,34,35.231248,2024,OECD Global Revenue Statistics,#9CA3AF
+Lithuania,LTU,35,33.129851,2024,OECD Global Revenue Statistics,#9CA3AF
+Germany,DEU,54,38.021492,2024,OECD Global Revenue Statistics,#2F855A
+Latvia,LVA,54,34.90567,2024,OECD Global Revenue Statistics,#9CA3AF
+Iceland,ISL,61,36.948753,2024,OECD Global Revenue Statistics,#9CA3AF
+Ireland,IRL,61,21.694294,2024,OECD Global Revenue Statistics,#6B7280
+Finland,FIN,62,42.217254,2024,OECD Global Revenue Statistics,#9CA3AF
+Malta,MLT,67,28.74159311,2024,OECD Global Revenue Statistics,#9CA3AF
+Bulgaria,BGR,69,30.45549451,2024,OECD Global Revenue Statistics,#9CA3AF
+Slovakia,SVK,69,35.551369,2024,OECD Global Revenue Statistics,#9CA3AF
+Greece,GRC,72,39.826849,2024,OECD Global Revenue Statistics,#9CA3AF
+Netherlands,NLD,74,38.541274,2024,OECD Global Revenue Statistics,#6B7280
+Sweden,SWE,74,41.437904,2024,OECD Global Revenue Statistics,#6B7280
+Cyprus,CYP,81,36.3,2024,Eurostat gov_10a_taxag (OECD Global Revenue Statistics has no Cyprus value),#9CA3AF
+Slovenia,SVN,81,38.296929,2024,OECD Global Revenue Statistics,#9CA3AF
+Croatia,HRV,86,38.42602458,2024,OECD Global Revenue Statistics,#9CA3AF
+Czechia,CZE,88,33.975018,2024,OECD Global Revenue Statistics,#9CA3AF
+Spain,ESP,88,36.682055,2024,OECD Global Revenue Statistics,#6B7280
+Italy,ITA,89,42.752192,2024,OECD Global Revenue Statistics,#6B7280
+Luxembourg,LUX,89,41.458699,2024,OECD Global Revenue Statistics,#9CA3AF
+Norway,NOR,89,40.190578,2024,OECD Global Revenue Statistics,#9CA3AF
+United Kingdom,GBR,90,34.366806,2024,OECD Global Revenue Statistics,#005F73
+Hungary,HUN,93,34.353895,2024,OECD Global Revenue Statistics,#9CA3AF
+Switzerland,CHE,98,27.169048,2024,OECD Global Revenue Statistics,#9CA3AF
+Romania,ROU,109,26.72793087,2023,OECD Global Revenue Statistics,#9CA3AF
+Portugal,PRT,110,35.134621,2024,OECD Global Revenue Statistics,#9CA3AF
+Belgium,BEL,112,42.571263,2024,OECD Global Revenue Statistics,#9CA3AF
+Poland,POL,115,36.64229,2024,OECD Global Revenue Statistics,#6B7280
+Austria,AUT,117,43.374411,2024,OECD Global Revenue Statistics,#9CA3AF
+Denmark,DNK,132,45.177061,2024,OECD Global Revenue Statistics,#D97706
+France,FRA,348,43.462209,2024,OECD Global Revenue Statistics,#C92A2A

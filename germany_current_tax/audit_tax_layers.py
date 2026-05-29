@@ -19,7 +19,7 @@ EXPECTED_ROWS = 54
 MAX_CHART_LABEL_LEN = 32
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE.parent / "data" / "germany_tax"
+DATA_DIR = BASE / "data"
 TABLE = DATA_DIR / "germany_tax_revenue_layered_2024.csv"
 BMF_TABLE = DATA_DIR / "germany_bmf_cash_tax_revenue_2024.csv"
 EUROSTAT_TABLE = DATA_DIR / "germany_eurostat_tax_revenue_candidate_table_2024.csv"

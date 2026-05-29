@@ -5,7 +5,7 @@ from pathlib import Path
 
 GDP_EUR = 2_919_900_000_000
 BASE = Path(__file__).resolve().parent
-TABLE = BASE.parent / "data" / "france_tax" / "france_tax_revenue_candidate_table_2024.csv"
+TABLE = BASE / "data" / "france_tax_revenue_candidate_table_2024.csv"
 
 EXPECTED_HEADERS = [
     "tax_name",

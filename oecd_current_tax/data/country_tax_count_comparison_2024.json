@@ -1,0 +1,313 @@
+{
+  "title": {
+    "text": "Number of taxes by country",
+    "subtext": "UK, France and Germany use our project counts; other countries use Eurostat National Tax List named 2024 lines",
+    "left": "center",
+    "top": 8,
+    "textStyle": {
+      "fontSize": 20,
+      "fontWeight": 700,
+      "color": "#111827"
+    },
+    "subtextStyle": {
+      "fontSize": 12,
+      "color": "#4B5563"
+    }
+  },
+  "_tpaTooltip": {
+    "template": "{name}<br>Taxes counted: {x:0}"
+  },
+  "tooltip": {
+    "trigger": "item"
+  },
+  "grid": {
+    "left": 150,
+    "right": 58,
+    "top": 82,
+    "bottom": 48,
+    "containLabel": true
+  },
+  "xAxis": {
+    "type": "value",
+    "name": "Number of taxes",
+    "nameLocation": "middle",
+    "nameGap": 34,
+    "axisLabel": {
+      "color": "#374151"
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#E5E7EB"
+      }
+    }
+  },
+  "yAxis": {
+    "type": "category",
+    "inverse": true,
+    "data": [
+      "Estonia",
+      "Lithuania",
+      "Germany",
+      "Latvia",
+      "Iceland",
+      "Ireland",
+      "Finland",
+      "Malta",
+      "Bulgaria",
+      "Slovakia",
+      "Greece",
+      "Netherlands",
+      "Sweden",
+      "Cyprus",
+      "Slovenia",
+      "Croatia",
+      "Czechia",
+      "Spain",
+      "Italy",
+      "Luxembourg",
+      "Norway",
+      "United Kingdom",
+      "Hungary",
+      "Switzerland",
+      "Romania",
+      "Portugal",
+      "Belgium",
+      "Poland",
+      "Austria",
+      "Denmark",
+      "France"
+    ],
+    "axisLabel": {
+      "color": "#111827",
+      "fontSize": 12
+    },
+    "axisTick": {
+      "show": false
+    }
+  },
+  "series": [
+    {
+      "type": "bar",
+      "data": [
+        {
+          "name": "Estonia",
+          "value": 34,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Lithuania",
+          "value": 35,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Germany",
+          "value": 54,
+          "itemStyle": {
+            "color": "#2F855A"
+          }
+        },
+        {
+          "name": "Latvia",
+          "value": 54,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Iceland",
+          "value": 61,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Ireland",
+          "value": 61,
+          "itemStyle": {
+            "color": "#6B7280"
+          }
+        },
+        {
+          "name": "Finland",
+          "value": 62,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Malta",
+          "value": 67,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Bulgaria",
+          "value": 69,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Slovakia",
+          "value": 69,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Greece",
+          "value": 72,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Netherlands",
+          "value": 74,
+          "itemStyle": {
+            "color": "#6B7280"
+          }
+        },
+        {
+          "name": "Sweden",
+          "value": 74,
+          "itemStyle": {
+            "color": "#6B7280"
+          }
+        },
+        {
+          "name": "Cyprus",
+          "value": 81,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Slovenia",
+          "value": 81,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Croatia",
+          "value": 86,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Czechia",
+          "value": 88,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Spain",
+          "value": 88,
+          "itemStyle": {
+            "color": "#6B7280"
+          }
+        },
+        {
+          "name": "Italy",
+          "value": 89,
+          "itemStyle": {
+            "color": "#6B7280"
+          }
+        },
+        {
+          "name": "Luxembourg",
+          "value": 89,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Norway",
+          "value": 89,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "United Kingdom",
+          "value": 90,
+          "itemStyle": {
+            "color": "#005F73"
+          }
+        },
+        {
+          "name": "Hungary",
+          "value": 93,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Switzerland",
+          "value": 98,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Romania",
+          "value": 109,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Portugal",
+          "value": 110,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Belgium",
+          "value": 112,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Poland",
+          "value": 115,
+          "itemStyle": {
+            "color": "#6B7280"
+          }
+        },
+        {
+          "name": "Austria",
+          "value": 117,
+          "itemStyle": {
+            "color": "#9CA3AF"
+          }
+        },
+        {
+          "name": "Denmark",
+          "value": 132,
+          "itemStyle": {
+            "color": "#D97706"
+          }
+        },
+        {
+          "name": "France",
+          "value": 348,
+          "itemStyle": {
+            "color": "#C92A2A"
+          }
+        }
+      ],
+      "barWidth": 18
+    }
+  ]
+}

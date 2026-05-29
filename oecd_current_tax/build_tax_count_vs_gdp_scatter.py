@@ -8,8 +8,8 @@ import json
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "code" / "data" / "country_comparison"
+BASE = Path(__file__).resolve().parent
+DATA_DIR = BASE / "data"
 COUNT_CHART = DATA_DIR / "country_tax_count_comparison_2024.json"
 OECD_CSV = DATA_DIR / "oecd_global_revenue_statistics_tax_gdp_2020_2024.csv"
 CYPRUS_EUROSTAT_JSON = DATA_DIR / "eurostat_cyprus_tax_gdp_2024.json"
@@ -247,8 +247,8 @@ def main() -> None:
     data = rows()
     write_csv(data)
     OUTPUT_JSON.write_text(json.dumps(chart(data), indent=2, ensure_ascii=False) + "\n")
-    print(f"Wrote {OUTPUT_CSV.relative_to(ROOT)}")
-    print(f"Wrote {OUTPUT_JSON.relative_to(ROOT)}")
+    print(f"Wrote {OUTPUT_CSV.relative_to(BASE)}")
+    print(f"Wrote {OUTPUT_JSON.relative_to(BASE)}")
 
 
 if __name__ == "__main__":

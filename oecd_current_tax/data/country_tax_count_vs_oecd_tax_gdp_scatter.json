@@ -1,0 +1,905 @@
+{
+  "backgroundColor": "#ffffff",
+  "title": {
+    "text": "Number of taxes for a country vs its tax as a % of GDP",
+    "left": "center",
+    "top": 8,
+    "textStyle": {
+      "fontSize": 20,
+      "fontWeight": 700,
+      "color": "#111827"
+    }
+  },
+  "_tpaTooltip": {
+    "template": "{name}<br>Tax revenue: {x:0.0}% of GDP<br>Taxes counted: {y:0}"
+  },
+  "tooltip": {
+    "trigger": "item",
+    "confine": true,
+    "extraCssText": "max-width:260px;white-space:normal;padding:8px 10px;"
+  },
+  "legend": {
+    "show": true,
+    "bottom": 8,
+    "left": "center",
+    "data": [
+      {
+        "name": "Include France",
+        "icon": "roundRect"
+      }
+    ],
+    "selected": {
+      "Include France": false
+    },
+    "selectedMode": "multiple",
+    "itemWidth": 18,
+    "itemHeight": 12,
+    "textStyle": {
+      "fontSize": 13,
+      "fontWeight": 700,
+      "color": "#111827"
+    },
+    "inactiveColor": "#9CA3AF",
+    "inactiveBorderColor": "#9CA3AF"
+  },
+  "grid": {
+    "left": 66,
+    "right": 142,
+    "top": 72,
+    "bottom": 92,
+    "containLabel": true
+  },
+  "xAxis": {
+    "type": "value",
+    "name": "Tax revenue (% of GDP)",
+    "nameLocation": "middle",
+    "nameGap": 38,
+    "min": 18,
+    "max": 47,
+    "axisLabel": {
+      "formatter": "{value}%",
+      "color": "#374151"
+    },
+    "nameTextStyle": {
+      "color": "#111827",
+      "fontWeight": 700
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#E5E7EB"
+      }
+    }
+  },
+  "yAxis": {
+    "type": "value",
+    "name": "Number of taxes",
+    "nameLocation": "middle",
+    "nameGap": 48,
+    "min": 20,
+    "scale": true,
+    "axisLabel": {
+      "color": "#374151"
+    },
+    "nameTextStyle": {
+      "color": "#111827",
+      "fontWeight": 700
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#E5E7EB"
+      }
+    }
+  },
+  "series": [
+    {
+      "type": "scatter",
+      "data": [
+        {
+          "name": "Estonia",
+          "value": [
+            35.231,
+            34
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Estonia",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Lithuania",
+          "value": [
+            33.13,
+            35
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Lithuania",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Germany",
+          "value": [
+            38.021,
+            54
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#2F855A",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Germany",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3,
+            "fontWeight": 800
+          },
+          "symbolSize": 11
+        },
+        {
+          "name": "Latvia",
+          "value": [
+            34.906,
+            54
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Latvia",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Iceland",
+          "value": [
+            36.949,
+            61
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Iceland",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Ireland",
+          "value": [
+            21.694,
+            61
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#6B7280",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Ireland",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Finland",
+          "value": [
+            42.217,
+            62
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Finland",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Malta",
+          "value": [
+            28.742,
+            67
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Malta",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Bulgaria",
+          "value": [
+            30.455,
+            69
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Bulgaria",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Slovakia",
+          "value": [
+            35.551,
+            69
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Slovakia",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Greece",
+          "value": [
+            39.827,
+            72
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Greece",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Netherlands",
+          "value": [
+            38.541,
+            74
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#6B7280",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Netherlands",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Sweden",
+          "value": [
+            41.438,
+            74
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#6B7280",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Sweden",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Cyprus",
+          "value": [
+            36.3,
+            81
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "Eurostat gov_10a_taxag (OECD Global Revenue Statistics has no Cyprus value)",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Cyprus",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Slovenia",
+          "value": [
+            38.297,
+            81
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Slovenia",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Croatia",
+          "value": [
+            38.426,
+            86
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Croatia",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Czechia",
+          "value": [
+            33.975,
+            88
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Czechia",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Spain",
+          "value": [
+            36.682,
+            88
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#6B7280",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Spain",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Italy",
+          "value": [
+            42.752,
+            89
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#6B7280",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Italy",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Luxembourg",
+          "value": [
+            41.459,
+            89
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Luxembourg",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Norway",
+          "value": [
+            40.191,
+            89
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Norway",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "United Kingdom",
+          "value": [
+            34.367,
+            90
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#005F73",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "United Kingdom",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3,
+            "fontWeight": 800
+          },
+          "symbolSize": 11
+        },
+        {
+          "name": "Hungary",
+          "value": [
+            34.354,
+            93
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Hungary",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Switzerland",
+          "value": [
+            27.169,
+            98
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Switzerland",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Romania",
+          "value": [
+            26.728,
+            109
+          ],
+          "tax_gdp_year": 2023,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Romania",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Portugal",
+          "value": [
+            35.135,
+            110
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Portugal",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Belgium",
+          "value": [
+            42.571,
+            112
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Belgium",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Poland",
+          "value": [
+            36.642,
+            115
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#6B7280",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Poland",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Austria",
+          "value": [
+            43.374,
+            117
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Austria",
+            "position": "left",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Denmark",
+          "value": [
+            45.177,
+            132
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#D97706",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Denmark",
+            "position": "left",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        }
+      ],
+      "legendHoverLink": false,
+      "labelLayout": {
+        "moveOverlap": "shiftY"
+      },
+      "emphasis": {
+        "focus": "self",
+        "scale": 1.15,
+        "label": {
+          "fontWeight": 800
+        }
+      }
+    },
+    {
+      "name": "Include France",
+      "type": "scatter",
+      "data": [
+        {
+          "name": "France",
+          "value": [
+            43.462,
+            348
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#C92A2A",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "France",
+            "position": "left",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3,
+            "fontWeight": 800
+          },
+          "symbolSize": 11
+        }
+      ],
+      "labelLayout": {
+        "moveOverlap": "shiftY"
+      },
+      "emphasis": {
+        "focus": "self",
+        "scale": 1.15,
+        "label": {
+          "fontWeight": 800
+        }
+      }
+    }
+  ]
+}

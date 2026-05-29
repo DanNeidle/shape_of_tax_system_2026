@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE.parent / "data" / "germany_tax"
+DATA_DIR = BASE / "data"
 INPUT = DATA_DIR / "germany_tax_revenue_layered_2024.csv"
 OUTPUT = DATA_DIR / "germany_tax_system_sunburst_2024.json"
 

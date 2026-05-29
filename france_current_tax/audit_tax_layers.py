@@ -17,7 +17,7 @@ EXPECTED_LAYER_1 = {
 MAX_CHART_LABEL_LEN = 32
 
 BASE = Path(__file__).resolve().parent
-TABLE = BASE.parent / "data" / "france_tax" / "france_tax_revenue_layered_2024.csv"
+TABLE = BASE / "data" / "france_tax_revenue_layered_2024.csv"
 
 
 def main():

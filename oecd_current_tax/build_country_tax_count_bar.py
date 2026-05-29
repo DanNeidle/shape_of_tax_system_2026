@@ -13,8 +13,9 @@ from pathlib import Path
 
 
 BASE = Path(__file__).resolve().parent
-INPUT = BASE / "country_tax_counts.csv"
-OUTPUT = BASE / "country_tax_count_comparison_2024.json"
+DATA_DIR = BASE / "data"
+INPUT = DATA_DIR / "country_tax_counts.csv"
+OUTPUT = DATA_DIR / "country_tax_count_comparison_2024.json"
 
 
 def read_rows() -> list[dict]:
