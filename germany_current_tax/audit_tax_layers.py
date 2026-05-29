@@ -15,7 +15,7 @@ EXPECTED_LAYER_1 = {
     "Environmental",
     "Other",
 }
-EXPECTED_ROWS = 54
+EXPECTED_ROWS = 60
 MAX_CHART_LABEL_LEN = 32
 
 BASE = Path(__file__).resolve().parent
