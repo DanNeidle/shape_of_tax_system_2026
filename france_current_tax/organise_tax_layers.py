@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Sort each French tax into the chart's layers, give it a short English label and explanation, and net off negative and overlapping rows, reading france_tax_revenue_candidate_table_2024.csv and writing france_tax_revenue_layered_2024.csv."""
 import csv
 import re
 import unicodedata
@@ -7,10 +10,11 @@ from collections import defaultdict
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE / "data"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "france_tax"
 INPUT = DATA_DIR / "france_tax_revenue_candidate_table_2024.csv"
 OUTPUT = DATA_DIR / "france_tax_revenue_layered_2024.csv"
-GDP_EUR = 2_919_900_000_000
+GDP_EUR = 2_919_900_000_000  # France's 2024 GDP
 
 LAYER_FIELDS = [
     "chart_label_en",
@@ -27,6 +31,7 @@ LAYER_FIELDS = [
     "netting_notes",
 ]
 
+# Short chart labels, keyed by the tax's exact French name.
 EXACT_LABELS = {
     "Accise sur l'électricité": "Electricity duty",
     "Amendes et confiscations": "Fines",
@@ -135,6 +140,7 @@ EXACT_LABELS = {
     "Versement mobilité": "Mobility payroll levy",
 }
 
+# Tooltip text, keyed by chart label.
 DISPLAY_EXPLANATIONS = {
     "VAT": "France's value added tax on goods and services.",
     "Employer social contribs": "Compulsory employer social security contributions on employees' pay.",
@@ -285,6 +291,7 @@ DISPLAY_EXPLANATIONS = {
     "Systemic risk tax": "Levy on financial institutions linked to systemic-risk regulation.",
 }
 
+# Fallback tooltip text for taxes without their own, keyed by layer_2.
 LAYER_EXPLANATIONS = {
     "Social contributions": "Compulsory or voluntary social security contributions.",
     "Personal income and social taxes": "Taxes and social charges on personal income.",
@@ -316,6 +323,7 @@ LAYER_EXPLANATIONS = {
 
 
 def ntext(value):
+    # Lower case without accents, so keyword matches work on French names.
     value = (value or "").lower()
     value = value.replace("œ", "oe").replace("’", "'")
     value = "".join(
@@ -327,6 +335,7 @@ def ntext(value):
 
 
 def source_sto(row):
+    # The ESA code, recorded in the source column as "STO <code>".
     source = row["source_for_data"]
     if "STO " not in source:
         return ""
@@ -334,6 +343,7 @@ def source_sto(row):
 
 
 def is_cour(row):
+    # A Cour tax whose 2024 yield came from the 2025 budget papers ("Projet de loi") still counts.
     return row["source_for_data"].startswith("Cour") or row["source_for_data"].startswith("Projet de loi")
 
 
@@ -350,6 +360,7 @@ def has_any(text, needles):
 
 
 def shorten_label(label, max_len=32):
+    # Abbreviate words one at a time until the label fits; if it still doesn't, truncate it.
     label = re.sub(r"\s+", " ", label).strip(" -;,.")
     replacements = [
         ("Contribution", "Levy"),
@@ -381,10 +392,13 @@ def shorten_label(label, max_len=32):
 
 
 def display_key(label):
+    # Drop the number dedupe_labels() may have added.
     return re.sub(r"\s+\d+$", "", label or "").strip()
 
 
 def display_explanation(row):
+    # Tooltip text: the label's own entry, then keyword matches on the tax's names, then the
+    # layer's generic text.
     label = display_key(row["chart_label_en"])
     if label in DISPLAY_EXPLANATIONS:
         return DISPLAY_EXPLANATIONS[label]
@@ -452,6 +466,7 @@ def display_explanation(row):
 
 
 def label_for_autres_taxes(row):
+    # Several Eurostat lines are called just "Autres taxes" ("other taxes"); name them by ESA code.
     sto = source_sto(row)
     labels = {
         "D2122C": "Other import taxes",
@@ -474,6 +489,8 @@ def label_for_autres_taxes(row):
 
 
 def label_from_french_name(row):
+    # Short English chart label: an exact match, then keywords in the French name, then the
+    # English name (unless it's our generic Cour one), then a generic label for the layer.
     name = row["tax_name"]
     text = ntext(name)
     layer_2 = row.get("layer_2", "")
@@ -784,6 +801,7 @@ def label_from_french_name(row):
 
 
 def dedupe_labels(rows):
+    # Where neighbouring slices share a label, add a place or a number to tell them apart.
     groups = {}
     for row in rows:
         if row.get("chart_include") != "yes":
@@ -821,6 +839,11 @@ def dedupe_labels(rows):
 
 
 def classify_eurostat(row):
+    """Return (layer_1, layer_2, layer_3, layer_4, note) for a Eurostat row.
+
+    Rules run in order and the first match wins. Where a tax has a UK equivalent we group it
+    as the UK would, so social contributions sit with employment taxes, as NICs do.
+    """
     name = ntext(row["tax_name"])
     english = ntext(row["tax_name_english"])
     explanation = ntext(row["english_explanation"])
@@ -914,6 +937,7 @@ def classify_eurostat(row):
 
 
 def classify_cour(row):
+    """Return the layers for a Cour row, from keywords in its legal name, base and payer. First match wins."""
     name = ntext(row["tax_name"])
     english = ntext(row["tax_name_english"])
     explanation = ntext(row["english_explanation"])
@@ -1000,6 +1024,7 @@ def is_global_overlap_adjustment(row):
 
 
 def make_cour_layer_adjustments(rows, fieldnames):
+    # Not called: main() nets the overlap with allocate_cour_overlap() instead.
     grouped = defaultdict(int)
     for row in rows:
         if not is_cour(row) or is_global_overlap_adjustment(row) or not row["revenue_eur"]:
@@ -1036,6 +1061,8 @@ def revenue_value(row):
 
 
 def init_chart_fields(row):
+    # Chart positive rows at full value to start with. Negative rows are never charted;
+    # they are netted off positive ones below.
     value = revenue_value(row)
     row["netted_adjustments_eur"] = "0"
     row["netting_notes"] = ""
@@ -1075,6 +1102,9 @@ def find_target_by_name(rows, needles):
 
 
 def apply_d995_netting(rows):
+    # Take each D995 amount (tax assessed but unlikely to be collected) off the tax it relates
+    # to. The two catch-all D995 lines come off the largest business production line and the
+    # largest wealth line.
     targets = [
         ("cotisations sociales effectives a la charge des employeurs dues non recouvrables", ["cotisations sociales effectives obligatoires a la charge des employeurs"]),
         ("cotisations sociales effectives a la charge des salaries dues non recouvrables", ["cotisations sociales effectives obligatoires a la charge des salaries"]),
@@ -1121,6 +1151,9 @@ def target_priority(row):
 
 
 def allocate_cour_overlap(rows):
+    # Cour taxes with known yields are already inside Eurostat's lines. To show them without
+    # double counting, take their total off Eurostat lines in the same layer: "other taxes"
+    # lines first, then the largest. If the layer has none, use the wider layer_1 group.
     grouped = defaultdict(int)
     for row in rows:
         if not is_cour(row) or is_global_overlap_adjustment(row):
@@ -1163,6 +1196,7 @@ def allocate_cour_overlap(rows):
 def main():
     with INPUT.open(encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
+        # Drop the source table's single overlap row: allocate_cour_overlap() replaces it.
         rows = [row for row in reader if not is_global_overlap_adjustment(row)]
         fieldnames = list(reader.fieldnames or [])
 

@@ -2026,6 +2026,30 @@
                 "name": "Recurrent land and property taxes",
                 "children": [
                   {
+                    "name": "Grundsteuer B",
+                    "value": 15.796,
+                    "actual_eur": 15796000000,
+                    "gdp_pct": 0.3668966157991313,
+                    "local_name": "Grundsteuer B",
+                    "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
+                    "itemStyle": {
+                      "color": "#B7791F"
+                    },
+                    "label": {
+                      "color": "#172033",
+                      "textBorderColor": "rgba(255,255,255,0.88)",
+                      "textBorderWidth": 3,
+                      "show": true,
+                      "formatter": "Grundsteuer B\n€15.8bn",
+                      "fontSize": 11,
+                      "lineHeight": 12
+                    },
+                    "layout_eur": 15796000000,
+                    "tooltip": {
+                      "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer B</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€15.8bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).</div></div>"
+                    }
+                  },
+                  {
                     "name": "Grundsteuer A",
                     "value": 0.426,
                     "actual_eur": 426000000,
@@ -2033,7 +2057,7 @@
                     "local_name": "Grundsteuer A",
                     "explanation": "Local recurrent tax on agricultural land.",
                     "itemStyle": {
-                      "color": "#B7791F"
+                      "color": "#D69E2E"
                     },
                     "label": {
                       "color": "#172033",
@@ -2054,7 +2078,7 @@
                         "explanation": "Local recurrent tax on agricultural land.",
                         "is_padding": true,
                         "itemStyle": {
-                          "color": "#B7791F",
+                          "color": "#D69E2E",
                           "borderWidth": 0.15
                         },
                         "label": {
@@ -2070,7 +2094,7 @@
                             "explanation": "Local recurrent tax on agricultural land.",
                             "is_padding": true,
                             "itemStyle": {
-                              "color": "#B7791F",
+                              "color": "#D69E2E",
                               "borderWidth": 0.15
                             },
                             "label": {
@@ -2091,30 +2115,6 @@
                     "layout_eur": 426000000,
                     "tooltip": {
                       "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer A</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.4bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on agricultural land.</div></div>"
-                    }
-                  },
-                  {
-                    "name": "Grundsteuer B",
-                    "value": 15.796,
-                    "actual_eur": 15796000000,
-                    "gdp_pct": 0.3668966157991313,
-                    "local_name": "Grundsteuer B",
-                    "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
-                    "itemStyle": {
-                      "color": "#D69E2E"
-                    },
-                    "label": {
-                      "color": "#172033",
-                      "textBorderColor": "rgba(255,255,255,0.88)",
-                      "textBorderWidth": 3,
-                      "show": true,
-                      "formatter": "Grundsteuer B\n€15.8bn",
-                      "fontSize": 11,
-                      "lineHeight": 12
-                    },
-                    "layout_eur": 15796000000,
-                    "tooltip": {
-                      "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer B</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€15.8bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).</div></div>"
                     }
                   },
                   {
@@ -2809,6 +2809,71 @@
                 "name": "Small local taxes",
                 "children": [
                   {
+                    "name": "Drinks-licence tax",
+                    "value": 0.001,
+                    "actual_eur": 1000000,
+                    "gdp_pct": 2.322718509743804e-05,
+                    "local_name": "Schankerlaubnissteuer",
+                    "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                    "itemStyle": {
+                      "color": "#0F4C75"
+                    },
+                    "label": {
+                      "color": "#FFFFFF",
+                      "textBorderColor": "rgba(15,23,42,0.42)",
+                      "textBorderWidth": 2.8,
+                      "show": false
+                    },
+                    "children": [
+                      {
+                        "name": "Drinks-licence tax",
+                        "value": 0.001,
+                        "actual_eur": 1000000,
+                        "gdp_pct": 2.322718509743804e-05,
+                        "local_name": "Schankerlaubnissteuer",
+                        "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                        "is_padding": true,
+                        "itemStyle": {
+                          "color": "#0F4C75",
+                          "borderWidth": 0.15
+                        },
+                        "label": {
+                          "show": false
+                        },
+                        "children": [
+                          {
+                            "name": "Drinks-licence tax",
+                            "value": 0.001,
+                            "actual_eur": 1000000,
+                            "gdp_pct": 2.322718509743804e-05,
+                            "local_name": "Schankerlaubnissteuer",
+                            "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                            "is_padding": true,
+                            "itemStyle": {
+                              "color": "#0F4C75",
+                              "borderWidth": 0.15
+                            },
+                            "label": {
+                              "show": false
+                            },
+                            "layout_eur": 1000000,
+                            "tooltip": {
+                              "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                            }
+                          }
+                        ],
+                        "layout_eur": 1000000,
+                        "tooltip": {
+                          "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                        }
+                      }
+                    ],
+                    "layout_eur": 1000000,
+                    "tooltip": {
+                      "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                    }
+                  },
+                  {
                     "name": "Household local taxes",
                     "children": [
                       {
@@ -2948,7 +3013,7 @@
                     "gdp_pct": 0.010154925324599912,
                     "value": 0.4372,
                     "itemStyle": {
-                      "color": "#0F4C75"
+                      "color": "#1B6CA8"
                     },
                     "label": {
                       "color": "#FFFFFF",
@@ -2972,12 +3037,12 @@
                     "local_name": "übrige Gemeindesteuern",
                     "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                     "itemStyle": {
-                      "color": "#1B6CA8"
+                      "color": "#2D9DE5"
                     },
                     "label": {
-                      "color": "#FFFFFF",
-                      "textBorderColor": "rgba(15,23,42,0.42)",
-                      "textBorderWidth": 2.8,
+                      "color": "#172033",
+                      "textBorderColor": "rgba(255,255,255,0.88)",
+                      "textBorderWidth": 3,
                       "show": false
                     },
                     "children": [
@@ -2990,7 +3055,7 @@
                         "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                         "is_padding": true,
                         "itemStyle": {
-                          "color": "#1B6CA8",
+                          "color": "#2D9DE5",
                           "borderWidth": 0.15
                         },
                         "label": {
@@ -3006,7 +3071,7 @@
                             "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                             "is_padding": true,
                             "itemStyle": {
-                              "color": "#1B6CA8",
+                              "color": "#2D9DE5",
                               "borderWidth": 0.15
                             },
                             "label": {
@@ -3027,71 +3092,6 @@
                     "layout_eur": 216800000,
                     "tooltip": {
                       "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Other municipal taxes</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.2bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>übrige Gemeindesteuern</em> - Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.</div></div>"
-                    }
-                  },
-                  {
-                    "name": "Drinks-licence tax",
-                    "value": 0.001,
-                    "actual_eur": 1000000,
-                    "gdp_pct": 2.322718509743804e-05,
-                    "local_name": "Schankerlaubnissteuer",
-                    "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                    "itemStyle": {
-                      "color": "#2D9DE5"
-                    },
-                    "label": {
-                      "color": "#172033",
-                      "textBorderColor": "rgba(255,255,255,0.88)",
-                      "textBorderWidth": 3,
-                      "show": false
-                    },
-                    "children": [
-                      {
-                        "name": "Drinks-licence tax",
-                        "value": 0.001,
-                        "actual_eur": 1000000,
-                        "gdp_pct": 2.322718509743804e-05,
-                        "local_name": "Schankerlaubnissteuer",
-                        "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                        "is_padding": true,
-                        "itemStyle": {
-                          "color": "#2D9DE5",
-                          "borderWidth": 0.15
-                        },
-                        "label": {
-                          "show": false
-                        },
-                        "children": [
-                          {
-                            "name": "Drinks-licence tax",
-                            "value": 0.001,
-                            "actual_eur": 1000000,
-                            "gdp_pct": 2.322718509743804e-05,
-                            "local_name": "Schankerlaubnissteuer",
-                            "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                            "is_padding": true,
-                            "itemStyle": {
-                              "color": "#2D9DE5",
-                              "borderWidth": 0.15
-                            },
-                            "label": {
-                              "show": false
-                            },
-                            "layout_eur": 1000000,
-                            "tooltip": {
-                              "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
-                            }
-                          }
-                        ],
-                        "layout_eur": 1000000,
-                        "tooltip": {
-                          "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
-                        }
-                      }
-                    ],
-                    "layout_eur": 1000000,
-                    "tooltip": {
-                      "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
                     }
                   }
                 ],
@@ -5257,6 +5257,30 @@
                   "name": "Recurrent land and property taxes",
                   "children": [
                     {
+                      "name": "Grundsteuer B",
+                      "value": 15.796,
+                      "actual_eur": 15796000000,
+                      "gdp_pct": 0.3668966157991313,
+                      "local_name": "Grundsteuer B",
+                      "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
+                      "itemStyle": {
+                        "color": "#B7791F"
+                      },
+                      "label": {
+                        "color": "#172033",
+                        "textBorderColor": "rgba(255,255,255,0.88)",
+                        "textBorderWidth": 3,
+                        "show": true,
+                        "formatter": "Grundsteuer B\n€15.8bn",
+                        "fontSize": 11,
+                        "lineHeight": 12
+                      },
+                      "layout_eur": 15796000000,
+                      "tooltip": {
+                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer B</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€15.8bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).</div></div>"
+                      }
+                    },
+                    {
                       "name": "Grundsteuer A",
                       "value": 0.426,
                       "actual_eur": 426000000,
@@ -5264,7 +5288,7 @@
                       "local_name": "Grundsteuer A",
                       "explanation": "Local recurrent tax on agricultural land.",
                       "itemStyle": {
-                        "color": "#B7791F"
+                        "color": "#D69E2E"
                       },
                       "label": {
                         "color": "#172033",
@@ -5285,7 +5309,7 @@
                           "explanation": "Local recurrent tax on agricultural land.",
                           "is_padding": true,
                           "itemStyle": {
-                            "color": "#B7791F",
+                            "color": "#D69E2E",
                             "borderWidth": 0.15
                           },
                           "label": {
@@ -5301,7 +5325,7 @@
                               "explanation": "Local recurrent tax on agricultural land.",
                               "is_padding": true,
                               "itemStyle": {
-                                "color": "#B7791F",
+                                "color": "#D69E2E",
                                 "borderWidth": 0.15
                               },
                               "label": {
@@ -5322,30 +5346,6 @@
                       "layout_eur": 426000000,
                       "tooltip": {
                         "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer A</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.4bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on agricultural land.</div></div>"
-                      }
-                    },
-                    {
-                      "name": "Grundsteuer B",
-                      "value": 15.796,
-                      "actual_eur": 15796000000,
-                      "gdp_pct": 0.3668966157991313,
-                      "local_name": "Grundsteuer B",
-                      "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
-                      "itemStyle": {
-                        "color": "#D69E2E"
-                      },
-                      "label": {
-                        "color": "#172033",
-                        "textBorderColor": "rgba(255,255,255,0.88)",
-                        "textBorderWidth": 3,
-                        "show": true,
-                        "formatter": "Grundsteuer B\n€15.8bn",
-                        "fontSize": 11,
-                        "lineHeight": 12
-                      },
-                      "layout_eur": 15796000000,
-                      "tooltip": {
-                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer B</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€15.8bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).</div></div>"
                       }
                     },
                     {
@@ -6040,6 +6040,71 @@
                   "name": "Small local taxes",
                   "children": [
                     {
+                      "name": "Drinks-licence tax",
+                      "value": 0.001,
+                      "actual_eur": 1000000,
+                      "gdp_pct": 2.322718509743804e-05,
+                      "local_name": "Schankerlaubnissteuer",
+                      "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                      "itemStyle": {
+                        "color": "#0F4C75"
+                      },
+                      "label": {
+                        "color": "#FFFFFF",
+                        "textBorderColor": "rgba(15,23,42,0.42)",
+                        "textBorderWidth": 2.8,
+                        "show": false
+                      },
+                      "children": [
+                        {
+                          "name": "Drinks-licence tax",
+                          "value": 0.001,
+                          "actual_eur": 1000000,
+                          "gdp_pct": 2.322718509743804e-05,
+                          "local_name": "Schankerlaubnissteuer",
+                          "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                          "is_padding": true,
+                          "itemStyle": {
+                            "color": "#0F4C75",
+                            "borderWidth": 0.15
+                          },
+                          "label": {
+                            "show": false
+                          },
+                          "children": [
+                            {
+                              "name": "Drinks-licence tax",
+                              "value": 0.001,
+                              "actual_eur": 1000000,
+                              "gdp_pct": 2.322718509743804e-05,
+                              "local_name": "Schankerlaubnissteuer",
+                              "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                              "is_padding": true,
+                              "itemStyle": {
+                                "color": "#0F4C75",
+                                "borderWidth": 0.15
+                              },
+                              "label": {
+                                "show": false
+                              },
+                              "layout_eur": 1000000,
+                              "tooltip": {
+                                "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                              }
+                            }
+                          ],
+                          "layout_eur": 1000000,
+                          "tooltip": {
+                            "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                          }
+                        }
+                      ],
+                      "layout_eur": 1000000,
+                      "tooltip": {
+                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                      }
+                    },
+                    {
                       "name": "Household local taxes",
                       "children": [
                         {
@@ -6179,7 +6244,7 @@
                       "gdp_pct": 0.010154925324599912,
                       "value": 0.4372,
                       "itemStyle": {
-                        "color": "#0F4C75"
+                        "color": "#1B6CA8"
                       },
                       "label": {
                         "color": "#FFFFFF",
@@ -6203,12 +6268,12 @@
                       "local_name": "übrige Gemeindesteuern",
                       "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                       "itemStyle": {
-                        "color": "#1B6CA8"
+                        "color": "#2D9DE5"
                       },
                       "label": {
-                        "color": "#FFFFFF",
-                        "textBorderColor": "rgba(15,23,42,0.42)",
-                        "textBorderWidth": 2.8,
+                        "color": "#172033",
+                        "textBorderColor": "rgba(255,255,255,0.88)",
+                        "textBorderWidth": 3,
                         "show": false
                       },
                       "children": [
@@ -6221,7 +6286,7 @@
                           "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                           "is_padding": true,
                           "itemStyle": {
-                            "color": "#1B6CA8",
+                            "color": "#2D9DE5",
                             "borderWidth": 0.15
                           },
                           "label": {
@@ -6237,7 +6302,7 @@
                               "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                               "is_padding": true,
                               "itemStyle": {
-                                "color": "#1B6CA8",
+                                "color": "#2D9DE5",
                                 "borderWidth": 0.15
                               },
                               "label": {
@@ -6258,71 +6323,6 @@
                       "layout_eur": 216800000,
                       "tooltip": {
                         "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Other municipal taxes</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.2bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>übrige Gemeindesteuern</em> - Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.</div></div>"
-                      }
-                    },
-                    {
-                      "name": "Drinks-licence tax",
-                      "value": 0.001,
-                      "actual_eur": 1000000,
-                      "gdp_pct": 2.322718509743804e-05,
-                      "local_name": "Schankerlaubnissteuer",
-                      "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                      "itemStyle": {
-                        "color": "#2D9DE5"
-                      },
-                      "label": {
-                        "color": "#172033",
-                        "textBorderColor": "rgba(255,255,255,0.88)",
-                        "textBorderWidth": 3,
-                        "show": false
-                      },
-                      "children": [
-                        {
-                          "name": "Drinks-licence tax",
-                          "value": 0.001,
-                          "actual_eur": 1000000,
-                          "gdp_pct": 2.322718509743804e-05,
-                          "local_name": "Schankerlaubnissteuer",
-                          "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                          "is_padding": true,
-                          "itemStyle": {
-                            "color": "#2D9DE5",
-                            "borderWidth": 0.15
-                          },
-                          "label": {
-                            "show": false
-                          },
-                          "children": [
-                            {
-                              "name": "Drinks-licence tax",
-                              "value": 0.001,
-                              "actual_eur": 1000000,
-                              "gdp_pct": 2.322718509743804e-05,
-                              "local_name": "Schankerlaubnissteuer",
-                              "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                              "is_padding": true,
-                              "itemStyle": {
-                                "color": "#2D9DE5",
-                                "borderWidth": 0.15
-                              },
-                              "label": {
-                                "show": false
-                              },
-                              "layout_eur": 1000000,
-                              "tooltip": {
-                                "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
-                              }
-                            }
-                          ],
-                          "layout_eur": 1000000,
-                          "tooltip": {
-                            "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
-                          }
-                        }
-                      ],
-                      "layout_eur": 1000000,
-                      "tooltip": {
-                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">€0.0bn</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
                       }
                     }
                   ],
@@ -8487,6 +8487,30 @@
                   "name": "Recurrent land and property taxes",
                   "children": [
                     {
+                      "name": "Grundsteuer B",
+                      "value": 0.3668966157991313,
+                      "actual_eur": 15796000000,
+                      "gdp_pct": 0.3668966157991313,
+                      "local_name": "Grundsteuer B",
+                      "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
+                      "itemStyle": {
+                        "color": "#B7791F"
+                      },
+                      "label": {
+                        "color": "#172033",
+                        "textBorderColor": "rgba(255,255,255,0.88)",
+                        "textBorderWidth": 3,
+                        "show": true,
+                        "formatter": "Grundsteuer B\n0.4%",
+                        "fontSize": 11,
+                        "lineHeight": 12
+                      },
+                      "layout_eur": 15796000000,
+                      "tooltip": {
+                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer B</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.4%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).</div></div>"
+                      }
+                    },
+                    {
                       "name": "Grundsteuer A",
                       "value": 0.009894780851508606,
                       "actual_eur": 426000000,
@@ -8494,7 +8518,7 @@
                       "local_name": "Grundsteuer A",
                       "explanation": "Local recurrent tax on agricultural land.",
                       "itemStyle": {
-                        "color": "#B7791F"
+                        "color": "#D69E2E"
                       },
                       "label": {
                         "color": "#172033",
@@ -8515,7 +8539,7 @@
                           "explanation": "Local recurrent tax on agricultural land.",
                           "is_padding": true,
                           "itemStyle": {
-                            "color": "#B7791F",
+                            "color": "#D69E2E",
                             "borderWidth": 0.15
                           },
                           "label": {
@@ -8531,7 +8555,7 @@
                               "explanation": "Local recurrent tax on agricultural land.",
                               "is_padding": true,
                               "itemStyle": {
-                                "color": "#B7791F",
+                                "color": "#D69E2E",
                                 "borderWidth": 0.15
                               },
                               "label": {
@@ -8552,30 +8576,6 @@
                       "layout_eur": 426000000,
                       "tooltip": {
                         "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer A</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on agricultural land.</div></div>"
-                      }
-                    },
-                    {
-                      "name": "Grundsteuer B",
-                      "value": 0.3668966157991313,
-                      "actual_eur": 15796000000,
-                      "gdp_pct": 0.3668966157991313,
-                      "local_name": "Grundsteuer B",
-                      "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
-                      "itemStyle": {
-                        "color": "#D69E2E"
-                      },
-                      "label": {
-                        "color": "#172033",
-                        "textBorderColor": "rgba(255,255,255,0.88)",
-                        "textBorderWidth": 3,
-                        "show": true,
-                        "formatter": "Grundsteuer B\n0.4%",
-                        "fontSize": 11,
-                        "lineHeight": 12
-                      },
-                      "layout_eur": 15796000000,
-                      "tooltip": {
-                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer B</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.4%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).</div></div>"
                       }
                     },
                     {
@@ -9270,6 +9270,71 @@
                   "name": "Small local taxes",
                   "children": [
                     {
+                      "name": "Drinks-licence tax",
+                      "value": 2.322718509743804e-05,
+                      "actual_eur": 1000000,
+                      "gdp_pct": 2.322718509743804e-05,
+                      "local_name": "Schankerlaubnissteuer",
+                      "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                      "itemStyle": {
+                        "color": "#0F4C75"
+                      },
+                      "label": {
+                        "color": "#FFFFFF",
+                        "textBorderColor": "rgba(15,23,42,0.42)",
+                        "textBorderWidth": 2.8,
+                        "show": false
+                      },
+                      "children": [
+                        {
+                          "name": "Drinks-licence tax",
+                          "value": 2.322718509743804e-05,
+                          "actual_eur": 1000000,
+                          "gdp_pct": 2.322718509743804e-05,
+                          "local_name": "Schankerlaubnissteuer",
+                          "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                          "is_padding": true,
+                          "itemStyle": {
+                            "color": "#0F4C75",
+                            "borderWidth": 0.15
+                          },
+                          "label": {
+                            "show": false
+                          },
+                          "children": [
+                            {
+                              "name": "Drinks-licence tax",
+                              "value": 2.322718509743804e-05,
+                              "actual_eur": 1000000,
+                              "gdp_pct": 2.322718509743804e-05,
+                              "local_name": "Schankerlaubnissteuer",
+                              "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                              "is_padding": true,
+                              "itemStyle": {
+                                "color": "#0F4C75",
+                                "borderWidth": 0.15
+                              },
+                              "label": {
+                                "show": false
+                              },
+                              "layout_eur": 1000000,
+                              "tooltip": {
+                                "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                              }
+                            }
+                          ],
+                          "layout_eur": 1000000,
+                          "tooltip": {
+                            "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                          }
+                        }
+                      ],
+                      "layout_eur": 1000000,
+                      "tooltip": {
+                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                      }
+                    },
+                    {
                       "name": "Household local taxes",
                       "children": [
                         {
@@ -9409,7 +9474,7 @@
                       "gdp_pct": 0.010154925324599912,
                       "value": 0.010154925324599912,
                       "itemStyle": {
-                        "color": "#0F4C75"
+                        "color": "#1B6CA8"
                       },
                       "label": {
                         "color": "#FFFFFF",
@@ -9433,12 +9498,12 @@
                       "local_name": "übrige Gemeindesteuern",
                       "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                       "itemStyle": {
-                        "color": "#1B6CA8"
+                        "color": "#2D9DE5"
                       },
                       "label": {
-                        "color": "#FFFFFF",
-                        "textBorderColor": "rgba(15,23,42,0.42)",
-                        "textBorderWidth": 2.8,
+                        "color": "#172033",
+                        "textBorderColor": "rgba(255,255,255,0.88)",
+                        "textBorderWidth": 3,
                         "show": false
                       },
                       "children": [
@@ -9451,7 +9516,7 @@
                           "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                           "is_padding": true,
                           "itemStyle": {
-                            "color": "#1B6CA8",
+                            "color": "#2D9DE5",
                             "borderWidth": 0.15
                           },
                           "label": {
@@ -9467,7 +9532,7 @@
                               "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                               "is_padding": true,
                               "itemStyle": {
-                                "color": "#1B6CA8",
+                                "color": "#2D9DE5",
                                 "borderWidth": 0.15
                               },
                               "label": {
@@ -9488,71 +9553,6 @@
                       "layout_eur": 216800000,
                       "tooltip": {
                         "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Other municipal taxes</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>übrige Gemeindesteuern</em> - Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.</div></div>"
-                      }
-                    },
-                    {
-                      "name": "Drinks-licence tax",
-                      "value": 2.322718509743804e-05,
-                      "actual_eur": 1000000,
-                      "gdp_pct": 2.322718509743804e-05,
-                      "local_name": "Schankerlaubnissteuer",
-                      "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                      "itemStyle": {
-                        "color": "#2D9DE5"
-                      },
-                      "label": {
-                        "color": "#172033",
-                        "textBorderColor": "rgba(255,255,255,0.88)",
-                        "textBorderWidth": 3,
-                        "show": false
-                      },
-                      "children": [
-                        {
-                          "name": "Drinks-licence tax",
-                          "value": 2.322718509743804e-05,
-                          "actual_eur": 1000000,
-                          "gdp_pct": 2.322718509743804e-05,
-                          "local_name": "Schankerlaubnissteuer",
-                          "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                          "is_padding": true,
-                          "itemStyle": {
-                            "color": "#2D9DE5",
-                            "borderWidth": 0.15
-                          },
-                          "label": {
-                            "show": false
-                          },
-                          "children": [
-                            {
-                              "name": "Drinks-licence tax",
-                              "value": 2.322718509743804e-05,
-                              "actual_eur": 1000000,
-                              "gdp_pct": 2.322718509743804e-05,
-                              "local_name": "Schankerlaubnissteuer",
-                              "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                              "is_padding": true,
-                              "itemStyle": {
-                                "color": "#2D9DE5",
-                                "borderWidth": 0.15
-                              },
-                              "label": {
-                                "show": false
-                              },
-                              "layout_eur": 1000000,
-                              "tooltip": {
-                                "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
-                              }
-                            }
-                          ],
-                          "layout_eur": 1000000,
-                          "tooltip": {
-                            "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
-                          }
-                        }
-                      ],
-                      "layout_eur": 1000000,
-                      "tooltip": {
-                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
                       }
                     }
                   ],
@@ -11717,6 +11717,30 @@
                   "name": "Recurrent land and property taxes",
                   "children": [
                     {
+                      "name": "Grundsteuer B",
+                      "value": 0.8695776635908118,
+                      "actual_eur": 15796000000,
+                      "gdp_pct": 0.3668966157991313,
+                      "local_name": "Grundsteuer B",
+                      "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
+                      "itemStyle": {
+                        "color": "#B7791F"
+                      },
+                      "label": {
+                        "color": "#172033",
+                        "textBorderColor": "rgba(255,255,255,0.88)",
+                        "textBorderWidth": 3,
+                        "show": true,
+                        "formatter": "Grundsteuer B\n0.9%",
+                        "fontSize": 11,
+                        "lineHeight": 12
+                      },
+                      "layout_eur": 15796000000,
+                      "tooltip": {
+                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer B</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.9%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).</div></div>"
+                      }
+                    },
+                    {
                       "name": "Grundsteuer A",
                       "value": 0.02345151207202367,
                       "actual_eur": 426000000,
@@ -11724,7 +11748,7 @@
                       "local_name": "Grundsteuer A",
                       "explanation": "Local recurrent tax on agricultural land.",
                       "itemStyle": {
-                        "color": "#B7791F"
+                        "color": "#D69E2E"
                       },
                       "label": {
                         "color": "#172033",
@@ -11745,7 +11769,7 @@
                           "explanation": "Local recurrent tax on agricultural land.",
                           "is_padding": true,
                           "itemStyle": {
-                            "color": "#B7791F",
+                            "color": "#D69E2E",
                             "borderWidth": 0.15
                           },
                           "label": {
@@ -11761,7 +11785,7 @@
                               "explanation": "Local recurrent tax on agricultural land.",
                               "is_padding": true,
                               "itemStyle": {
-                                "color": "#B7791F",
+                                "color": "#D69E2E",
                                 "borderWidth": 0.15
                               },
                               "label": {
@@ -11782,30 +11806,6 @@
                       "layout_eur": 426000000,
                       "tooltip": {
                         "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer A</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on agricultural land.</div></div>"
-                      }
-                    },
-                    {
-                      "name": "Grundsteuer B",
-                      "value": 0.8695776635908118,
-                      "actual_eur": 15796000000,
-                      "gdp_pct": 0.3668966157991313,
-                      "local_name": "Grundsteuer B",
-                      "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
-                      "itemStyle": {
-                        "color": "#D69E2E"
-                      },
-                      "label": {
-                        "color": "#172033",
-                        "textBorderColor": "rgba(255,255,255,0.88)",
-                        "textBorderWidth": 3,
-                        "show": true,
-                        "formatter": "Grundsteuer B\n0.9%",
-                        "fontSize": 11,
-                        "lineHeight": 12
-                      },
-                      "layout_eur": 15796000000,
-                      "tooltip": {
-                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Grundsteuer B</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.9%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\">Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).</div></div>"
                       }
                     },
                     {
@@ -12500,6 +12500,71 @@
                   "name": "Small local taxes",
                   "children": [
                     {
+                      "name": "Drinks-licence tax",
+                      "value": 5.5050497821651804e-05,
+                      "actual_eur": 1000000,
+                      "gdp_pct": 2.322718509743804e-05,
+                      "local_name": "Schankerlaubnissteuer",
+                      "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                      "itemStyle": {
+                        "color": "#0F4C75"
+                      },
+                      "label": {
+                        "color": "#FFFFFF",
+                        "textBorderColor": "rgba(15,23,42,0.42)",
+                        "textBorderWidth": 2.8,
+                        "show": false
+                      },
+                      "children": [
+                        {
+                          "name": "Drinks-licence tax",
+                          "value": 5.5050497821651804e-05,
+                          "actual_eur": 1000000,
+                          "gdp_pct": 2.322718509743804e-05,
+                          "local_name": "Schankerlaubnissteuer",
+                          "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                          "is_padding": true,
+                          "itemStyle": {
+                            "color": "#0F4C75",
+                            "borderWidth": 0.15
+                          },
+                          "label": {
+                            "show": false
+                          },
+                          "children": [
+                            {
+                              "name": "Drinks-licence tax",
+                              "value": 5.5050497821651804e-05,
+                              "actual_eur": 1000000,
+                              "gdp_pct": 2.322718509743804e-05,
+                              "local_name": "Schankerlaubnissteuer",
+                              "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+                              "is_padding": true,
+                              "itemStyle": {
+                                "color": "#0F4C75",
+                                "borderWidth": 0.15
+                              },
+                              "label": {
+                                "show": false
+                              },
+                              "layout_eur": 1000000,
+                              "tooltip": {
+                                "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                              }
+                            }
+                          ],
+                          "layout_eur": 1000000,
+                          "tooltip": {
+                            "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                          }
+                        }
+                      ],
+                      "layout_eur": 1000000,
+                      "tooltip": {
+                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
+                      }
+                    },
+                    {
                       "name": "Household local taxes",
                       "children": [
                         {
@@ -12639,7 +12704,7 @@
                       "gdp_pct": 0.010154925324599912,
                       "value": 0.024068077647626168,
                       "itemStyle": {
-                        "color": "#0F4C75"
+                        "color": "#1B6CA8"
                       },
                       "label": {
                         "color": "#FFFFFF",
@@ -12663,12 +12728,12 @@
                       "local_name": "übrige Gemeindesteuern",
                       "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                       "itemStyle": {
-                        "color": "#1B6CA8"
+                        "color": "#2D9DE5"
                       },
                       "label": {
-                        "color": "#FFFFFF",
-                        "textBorderColor": "rgba(15,23,42,0.42)",
-                        "textBorderWidth": 2.8,
+                        "color": "#172033",
+                        "textBorderColor": "rgba(255,255,255,0.88)",
+                        "textBorderWidth": 3,
                         "show": false
                       },
                       "children": [
@@ -12681,7 +12746,7 @@
                           "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                           "is_padding": true,
                           "itemStyle": {
-                            "color": "#1B6CA8",
+                            "color": "#2D9DE5",
                             "borderWidth": 0.15
                           },
                           "label": {
@@ -12697,7 +12762,7 @@
                               "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
                               "is_padding": true,
                               "itemStyle": {
-                                "color": "#1B6CA8",
+                                "color": "#2D9DE5",
                                 "borderWidth": 0.15
                               },
                               "label": {
@@ -12718,71 +12783,6 @@
                       "layout_eur": 216800000,
                       "tooltip": {
                         "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Other municipal taxes</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>übrige Gemeindesteuern</em> - Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.</div></div>"
-                      }
-                    },
-                    {
-                      "name": "Drinks-licence tax",
-                      "value": 5.5050497821651804e-05,
-                      "actual_eur": 1000000,
-                      "gdp_pct": 2.322718509743804e-05,
-                      "local_name": "Schankerlaubnissteuer",
-                      "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                      "itemStyle": {
-                        "color": "#2D9DE5"
-                      },
-                      "label": {
-                        "color": "#172033",
-                        "textBorderColor": "rgba(255,255,255,0.88)",
-                        "textBorderWidth": 3,
-                        "show": false
-                      },
-                      "children": [
-                        {
-                          "name": "Drinks-licence tax",
-                          "value": 5.5050497821651804e-05,
-                          "actual_eur": 1000000,
-                          "gdp_pct": 2.322718509743804e-05,
-                          "local_name": "Schankerlaubnissteuer",
-                          "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                          "is_padding": true,
-                          "itemStyle": {
-                            "color": "#2D9DE5",
-                            "borderWidth": 0.15
-                          },
-                          "label": {
-                            "show": false
-                          },
-                          "children": [
-                            {
-                              "name": "Drinks-licence tax",
-                              "value": 5.5050497821651804e-05,
-                              "actual_eur": 1000000,
-                              "gdp_pct": 2.322718509743804e-05,
-                              "local_name": "Schankerlaubnissteuer",
-                              "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
-                              "is_padding": true,
-                              "itemStyle": {
-                                "color": "#2D9DE5",
-                                "borderWidth": 0.15
-                              },
-                              "label": {
-                                "show": false
-                              },
-                              "layout_eur": 1000000,
-                              "tooltip": {
-                                "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
-                              }
-                            }
-                          ],
-                          "layout_eur": 1000000,
-                          "tooltip": {
-                            "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
-                          }
-                        }
-                      ],
-                      "layout_eur": 1000000,
-                      "tooltip": {
-                        "formatter": "<div style=\"max-width:240px;white-space:normal;\"><div style=\"font-weight:700;font-size:13px;line-height:1.25;color:#0f172a;\">Drinks-licence tax</div><div style=\"font-weight:700;font-size:12px;line-height:1.35;margin-top:2px;color:#0f172a;\">0.0%</div><div style=\"font-size:11px;line-height:1.3;color:#475569;white-space:normal;\"><em>Schankerlaubnissteuer</em> - Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.</div></div>"
                       }
                     }
                   ],

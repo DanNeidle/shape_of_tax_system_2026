@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Build a compact lifespan timeline chart for UK taxes."""
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Build a timeline of UK taxes: one line for each period a tax was in force, coloured by category."""
 
 from __future__ import annotations
 
@@ -7,6 +9,7 @@ import argparse
 import csv
 import html
 import json
+import re
 from calendar import monthrange
 from datetime import date
 from pathlib import Path
@@ -14,11 +17,13 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_lifespans_broad.tsv"
-DEFAULT_OUTPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_lifespan_timeline.json"
-TODAY = date(2026, 5, 28)
+DEFAULT_OUTPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_lifespan_timeline_2026_11.json"
+# Fixed rather than date.today(), so a re-run gives the same chart.
+TODAY = date(2026, 11, 17)
 DEFAULT_START_YEAR = 1000
 
 
+# The seven categories and their colours, in legend order.
 GROUPS = [
     ("Employment taxes", "#006D77"),
     ("Goods/services", "#D9480F"),
@@ -48,6 +53,11 @@ MONTH_NAMES = [
 
 
 def parse_partial_date(year: str, value: str, *, is_end: bool) -> date | None:
+    """Turn a year and an optional "YYYY", "YYYY-MM" or "YYYY-MM-DD" date into a date.
+
+    Missing parts are filled in as early as possible for a start and as late as
+    possible for an end, so a tax that ended in "1799" runs to 31 December 1799.
+    """
     if not year:
         return None
     if not value:
@@ -63,7 +73,99 @@ def parse_partial_date(year: str, value: str, *, is_end: bool) -> date | None:
     return date(parts[0], parts[1], parts[2])
 
 
+# Current taxes take their category from our sunburst chart of the 2025-26 tax
+# system. A few current taxes aren't on the sunburst; they are listed last in
+# each category, next to their nearest neighbours. Abolished taxes are left to
+# the keyword rules in classify().
+SUNBURST_GROUPS = {
+    "Employment taxes": [
+        "income_tax", "employer_national_insurance_contributions", "employee_national_insurance_contributions",
+        "self_employed_national_insurance_contributions", "other_national_insurance_contributions",
+        "apprenticeship_levy",
+    ],
+    "Goods/services": [
+        "value_added_tax", "insurance_premium_tax", "air_passenger_duty", "fuel_duty", "beer_duty", "wine_duty",
+        "home_spirits_duty", "vehicle_excise_duty", "tobacco_duty", "modern_customs_duties",
+        "remote_gaming_duty", "lottery_duty", "general_betting_duty", "machine_games_duty", "gaming_duty",
+        "bingo_duty", "pool_betting_duty", "soft_drinks_industry_levy", "hgv_road_user_levy",
+        "statutory_gambling_levy",
+        # Not on the sunburst:
+        "vaping_products_duty",
+    ],
+    "Business": [
+        "onshore_corporation_tax", "ring_fence_corporation_tax", "digital_services_tax", "bank_levy",
+        "bank_surcharge", "diverted_profits_tax", "residential_property_developer_tax", "energy_profits_levy",
+        "electricity_generator_levy", "petroleum_revenue_tax",
+        # Not on the sunburst:
+        "multinational_top_up_tax", "domestic_top_up_tax", "public_interest_business_protection_tax",
+    ],
+    "Land": [
+        "council_tax", "business_rates", "northern_ireland_domestic_rates", "northern_ireland_business_rates",
+        "residential_sdlt", "additional_dwellings_sdlt", "non_resident_sdlt", "non_residential_sdlt",
+        "annual_tax_enveloped_dwellings", "land_buildings_transaction_tax", "land_transaction_tax_wales",
+    ],
+    "Wealth": [
+        "capital_gains_tax", "inheritance_tax", "stamp_duty_reserve_tax", "stamp_duty_shares_securities",
+        # Not on the sunburst:
+        "bearer_instrument_duty",
+    ],
+    "Environment & energy": [
+        "renewables_obligation", "contracts_for_difference_supplier_obligation", "feed_in_tariffs",
+        "capacity_market_supplier_charge", "warm_home_discount", "sizewell_c_rab_levy", "green_gas_levy",
+        "uk_emissions_trading_scheme", "climate_change_levy", "landfill_tax", "aggregates_levy",
+        "plastic_packaging_tax", "scottish_landfill_tax", "landfill_disposals_tax_wales",
+        "extended_producer_responsibility_packaging_fees",
+        # Not on the sunburst:
+        "carbon_border_adjustment_mechanism", "scottish_aggregates_tax",
+    ],
+    "Other": [
+        "television_licence_fee", "immigration_health_surcharge", "visa_fees", "lottery_payments",
+        "levy_funded_bodies", "bank_of_england_levy", "passport_fees", "british_transport_police_levy",
+        "dvla_registration_fees", "lighthouse_dues", "atol_protection_contribution", "consumer_credit_fees",
+        "immigration_skills_charge", "land_registry_fees", "community_infrastructure_levy",
+        "companies_house_fees", "economic_crime_levy", "horserace_betting_levy",
+        # Not on the sunburst:
+        "pension_protection_levy", "building_safety_levy", "landlord_registration_fee",
+    ],
+}
+GROUP_BY_TAX_ID = {tax_id: group for group, tax_ids in SUNBURST_GROUPS.items() for tax_id in tax_ids}
+assert len(GROUP_BY_TAX_ID) == sum(len(tax_ids) for tax_ids in SUNBURST_GROUPS.values())
+
+
+# Abolished taxes that the keyword rules in classify() would put in the wrong category.
+HISTORICAL_GROUPS = {
+    "capital_transfer_tax": "Wealth",
+    "investment_income_surcharge": "Wealth",
+    "special_contribution": "Wealth",
+    "composite_rate_tax": "Wealth",
+    "east_india_african_hudson_joint_stock_tax_1692": "Wealth",
+    "purchase_tax": "Goods/services",
+    "car_tax": "Goods/services",
+    "beer_seller_licence": "Goods/services",
+    "wine_seller_licence": "Goods/services",
+    "spirit_retailer_licence": "Goods/services",
+    "commonwealth_monthly_assessment": "Land",
+    "furnished_house_agent_duty": "Other",
+    "plate_chest_duty": "Other",
+}
+
+
+def has_word(text: str, *words: str) -> bool:
+    """Whole-word match, so "Commonwealth" is not "wealth" and "aerated" is not "rate"."""
+    return any(re.search(rf"\b{re.escape(word)}\b", text) for word in words)
+
+
 def classify(row: dict[str, str]) -> str:
+    """Put a tax in one of the seven categories.
+
+    Listed taxes take their listed category. Anything else is matched on words in
+    its name, parent tax, category and id; the first rule that matches wins, so
+    the order of the checks matters.
+    """
+    if row["tax_id"] in GROUP_BY_TAX_ID:
+        return GROUP_BY_TAX_ID[row["tax_id"]]
+    if row["tax_id"] in HISTORICAL_GROUPS:
+        return HISTORICAL_GROUPS[row["tax_id"]]
     text = " ".join(
         [
             row["tax_name"],
@@ -92,7 +194,7 @@ def classify(row: dict[str, str]) -> str:
         or "estate duty" in text
         or "legacy duty" in text
         or "succession duty" in text
-        or "wealth" in text
+        or has_word(text, "wealth")
         or "securities" in text
         or "shares" in text
         or "bearer" in text
@@ -102,12 +204,12 @@ def classify(row: dict[str, str]) -> str:
     ):
         return "Wealth"
     if (
-        "land" in text
+        has_word(text, "land", "lands")
         or "property" in text
-        or "rate" in text
+        or has_word(text, "rate", "rates")
         or "council tax" in text
         or "dwelling" in text
-        or "house" in text
+        or has_word(text, "house", "houses")
         or "hearth" in text
         or "window" in text
         or "development" in text
@@ -145,6 +247,7 @@ def classify(row: dict[str, str]) -> str:
 
 
 def format_date(year: str, value: str, *, active_text: str | None = None) -> str:
+    """A date for the tooltip: "6 April 1799", "April 1799" or "1799"."""
     if active_text is not None:
         return active_text
     if value:
@@ -167,6 +270,11 @@ def line_points(
     chart_start: date,
     lane: int,
 ) -> list[list[str | int]]:
+    """The points for one tax's line: its two ends and 1 January of every fifth year between.
+
+    The points are invisible; the extra ones give the tooltip something to catch
+    anywhere along a long line.
+    """
     start_value = max(start, chart_start)
     end_value = end
     point_values = {start_value, end_value}
@@ -183,7 +291,15 @@ def line_points(
 
 
 def interval(row: dict[str, str], chart_end: date) -> tuple[date, date, str, str] | None:
-    if row["episode_status"] == "chart_split_only":
+    """A tax's start, end, end label and line style, or None if it isn't drawn.
+
+    Solid lines are taxes in force or ended. Dashed lines are taxes that are law
+    but haven't started, and taxes that Dowell, our main historical source, has
+    in force in 1885: we haven't yet traced when those ended, so they stop at the
+    end of 1885. Dotted lines are taxes whose status we haven't established; they
+    run to the end of the chart.
+    """
+    if row["episode_status"] in {"chart_split_only", "announced_not_enacted"}:
         return None
 
     start = parse_partial_date(row["start_year"], row["start_date"], is_end=False)
@@ -196,7 +312,7 @@ def interval(row: dict[str, str], chart_end: date) -> tuple[date, date, str, str
         line_type = "solid"
     elif row["episode_status"] == "not_yet_in_force":
         end = chart_end
-        end_label = "announced/not yet in force"
+        end_label = "enacted, not yet in force"
         line_type = "dashed"
     elif row["episode_status"] == "extant_at_source_date" and not row["end_year"]:
         end = date(1885, 12, 31)
@@ -219,6 +335,7 @@ def interval(row: dict[str, str], chart_end: date) -> tuple[date, date, str, str
 
 
 def tooltip_html(row: dict[str, str], group: str, start_label: str, end_label: str, colour: str) -> str:
+    """The hover box for one tax."""
     tax_name = html.escape(row["tax_name"])
     group_label = html.escape(group)
     status = html.escape(row["episode_status"].replace("_", " "))
@@ -256,6 +373,8 @@ def tooltip_html(row: dict[str, str], group: str, start_label: str, end_label: s
 
 def build_option(rows: list[dict[str, str]], start_year: int) -> dict:
     chart_start = date(start_year, 1, 1)
+    # Run to today, or to the latest start date of a tax that is law but hasn't
+    # started, if that is later.
     chart_end = max(
         [TODAY]
         + [
@@ -281,6 +400,8 @@ def build_option(rows: list[dict[str, str]], start_year: int) -> dict:
 
     items.sort(key=lambda item: (item[0], item[1], item[2]))
 
+    # One empty series per category, for the legend. Every tax's line carries its
+    # category's name too, so clicking a legend entry shows or hides the category.
     series = []
     for group, colour in GROUPS:
         series.append(
@@ -298,6 +419,8 @@ def build_option(rows: list[dict[str, str]], start_year: int) -> dict:
         )
 
     for item_index, (start, end, _sort_name, row, group, end_label, line_type) in enumerate(items):
+        # The y-axis is inverted, so the oldest tax gets the highest lane and sits
+        # at the bottom.
         lane = len(items) - item_index - 1
         colour = GROUP_COLOURS[group]
         start_label = format_date(row["start_year"], row["start_date"])
@@ -306,6 +429,7 @@ def build_option(rows: list[dict[str, str]], start_year: int) -> dict:
         series.append(
             {
                 "id": f"{row['tax_id']}-{row['episode']}",
+                "name": group,
                 "taxName": row["tax_name"],
                 "groupName": group,
                 "type": "line",
@@ -404,6 +528,7 @@ def build_option(rows: list[dict[str, str]], start_year: int) -> dict:
             "show": False,
         },
         "series": series,
+        # Counts that main() prints.
         "_tpaMeta": {
             "items": len(items),
             "skipped_missing_or_out_of_range": skipped,

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Build an ECharts line chart for the broad UK tax count over time."""
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Build a stacked bar chart of how many UK taxes were in force each year, split by category."""
 
 from __future__ import annotations
 
@@ -10,16 +12,25 @@ from calendar import monthrange
 from datetime import date, timedelta
 from pathlib import Path
 
+from build_tax_lifespan_timeline_chart import GROUPS, classify
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_lifespans_broad.tsv"
-DEFAULT_OUTPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_count_over_time.json"
-TODAY = date(2026, 5, 28)
+DEFAULT_OUTPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_count_over_time_2026_11.json"
+# Fixed rather than date.today(), so a re-run gives the same chart.
+TODAY = date(2026, 11, 17)
 DEFAULT_START_YEAR = 1000
+# Label every hundredth year: ECharts takes the number of labels to skip.
 CENTURY_CATEGORY_INTERVAL = 99
 
 
 def parse_partial_date(year: str, value: str, *, is_end: bool) -> date | None:
+    """Turn a year and an optional "YYYY", "YYYY-MM" or "YYYY-MM-DD" date into a date.
+
+    Missing parts are filled in as early as possible for a start and as late as
+    possible for an end, so a tax that ended in "1799" counts for all of 1799.
+    """
     if not year:
         return None
     if not value:
@@ -45,7 +56,10 @@ def row_interval(
     chart_end: date,
     include_future: bool,
 ) -> tuple[date, date] | None:
-    if row["episode_status"] == "chart_split_only":
+    """The dates a tax was in force, clipped to the chart, or None if it isn't counted."""
+    if row["episode_status"] in {"chart_split_only", "announced_not_enacted"}:
+        # Not law yet, or a row that repeats a tax we count at another level
+        # (a parent tax counted through its parts, or the reverse).
         return None
     if row["episode_status"] == "not_yet_in_force" and not include_future:
         return None
@@ -55,13 +69,20 @@ def row_interval(
         return None
 
     start = row_start(row)
-    if start is None or start > chart_end:
+    if start is None:
+        return None
+    if row["episode_status"] == "not_yet_in_force":
+        # Law but not yet started. We count taxes on the statute book, so it
+        # counts from today.
+        start = min(start, chart_end)
+    if start > chart_end:
         return None
 
     if row["episode_status"] in {"active", "not_yet_in_force"}:
         end = chart_end
     elif row["episode_status"] == "extant_at_source_date" and not row["end_year"]:
-        # Dowell-era rows marked extant but not yet traced past the source date.
+        # Dowell, our main historical source, has these still in force in 1885.
+        # We haven't yet traced when they ended, so they stop at the end of 1885.
         end = date(1885, 12, 31)
     else:
         end = parse_partial_date(row["end_year"], row["end_date"], is_end=True)
@@ -74,14 +95,8 @@ def row_interval(
 
 
 def chart_end(rows: list[dict[str, str]], include_future: bool) -> date:
-    end = TODAY
-    if include_future:
-        for row in rows:
-            if row["episode_status"] == "not_yet_in_force":
-                start = row_start(row)
-                if start is not None:
-                    end = max(end, start)
-    return end
+    """The chart ends today. Taxes that are law but haven't started yet count from today."""
+    return TODAY
 
 
 def build_series(
@@ -89,6 +104,7 @@ def build_series(
     chart_start: date,
     include_future: bool,
 ) -> list[dict[str, str | list[float | int]]]:
+    """A running count with a point on each date the count changes (unused by the bar chart)."""
     end_date = chart_end(rows, include_future)
     events: dict[date, int] = {}
     for row in rows:
@@ -97,11 +113,12 @@ def build_series(
             continue
         start, end = interval
         events[start] = events.get(start, 0) + 1
+        # A tax drops out of the count the day after it ends.
         after_end = end + timedelta(days=1)
         if after_end <= end_date:
             events[after_end] = events.get(after_end, 0) - 1
 
-    # Count anything already in force at the chart start.
+    # Taxes already in force when the chart starts.
     count = 0
     for event_date in sorted(date_ for date_ in events if date_ <= chart_start):
         count += events[event_date]
@@ -126,6 +143,11 @@ def build_annual_series(
     chart_start: date,
     include_future: bool,
 ) -> tuple[list[str], list[int]]:
+    """Count the taxes in force on 31 December of each year (today, for this year).
+
+    So a tax introduced during a year shows in that year, and one abolished
+    during a year doesn't.
+    """
     end_date = chart_end(rows, include_future)
     categories = year_categories(chart_start, end_date)
     intervals = [
@@ -136,13 +158,85 @@ def build_annual_series(
 
     data: list[int] = []
     for year_label in categories:
-        # Use year-end counts so in-year enactments are visible in their calendar year.
         point = min(date(int(year_label), 12, 31), end_date)
         data.append(sum(1 for start, end in intervals if start <= point <= end))
     return categories, data
 
 
-def build_option(categories: list[str], data: list[int], chart_start: date) -> dict:
+def build_annual_series_by_group(
+    rows: list[dict[str, str]],
+    chart_start: date,
+    include_future: bool,
+) -> tuple[list[str], dict[str, list[int]]]:
+    """The same year-end counts, split into the seven categories of the lifespan timeline."""
+    end_date = chart_end(rows, include_future)
+    categories = year_categories(chart_start, end_date)
+    intervals = [
+        (classify(row), interval)
+        for row in rows
+        if (interval := row_interval(row, chart_start, end_date, include_future)) is not None
+    ]
+
+    data: dict[str, list[int]] = {group: [] for group, _ in GROUPS}
+    for year_label in categories:
+        point = min(date(int(year_label), 12, 31), end_date)
+        counts = {group: 0 for group, _ in GROUPS}
+        for group, (start, end) in intervals:
+            if start <= point <= end:
+                counts[group] += 1
+        for group in counts:
+            data[group].append(counts[group])
+    return categories, data
+
+
+# Our website's chart loader builds the tooltip from a heading plus one row per
+# category, filling in {x} (the year), {name} (the bar's name, which we set to
+# the year's total), {series} and {y}. It has no placeholder for a colour, so
+# the heading carries a small stylesheet that colours each row's dot.
+TOOLTIP_WIDTH = "width:214px"
+TOOLTIP_DOT_CSS = "".join(
+    f'.tpa-tax-dot[data-group="{group}"]{{background:{colour}}}' for group, colour in GROUPS
+)
+TOOLTIP_HEADER = (
+    f"<style>{TOOLTIP_DOT_CSS}</style>"
+    f"<span style='display:inline-block;{TOOLTIP_WIDTH};font-size:11px;line-height:1.3;"
+    "letter-spacing:.06em;text-transform:uppercase;color:#bfdbfe'>{x}</span><br>"
+    f"<span style='display:inline-block;{TOOLTIP_WIDTH};font-size:18px;line-height:1.3;font-weight:700;"
+    "color:#fff;padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid rgba(148,163,184,.35)'>{name}</span>"
+)
+TOOLTIP_ROW = (
+    f"<span style='display:inline-flex;align-items:center;{TOOLTIP_WIDTH};font-size:13px;line-height:1.5;"
+    "color:#cbd5e1'>"
+    "<i class='tpa-tax-dot' data-group='{series}' style='flex:none;width:9px;height:9px;border-radius:999px;"
+    "margin-right:9px;box-shadow:0 0 0 1px rgba(255,255,255,.45)'></i>"
+    "<span style='flex:1'>{series}</span>"
+    "<b style='color:#fff;font-weight:600'>{y:0,0}</b></span>"
+)
+
+
+def build_option(categories: list[str], grouped: dict[str, list[int]], totals: list[int]) -> dict:
+    # Each bar is named with the year's total ("102 taxes") so the tooltip can
+    # use it as the heading; a separate total series would add a legend entry.
+    # Zero counts are null, so the tooltip leaves those categories out.
+    def heading(index: int) -> str:
+        total = totals[index]
+        return f"{total} {'tax' if total == 1 else 'taxes'}"
+
+    group_series = [
+        {
+            "name": group,
+            "type": "bar",
+            "stack": "taxes",
+            "barCategoryGap": "0%",
+            "itemStyle": {"color": colour},
+            "emphasis": {"disabled": True},
+            "data": [
+                {"name": heading(index), "value": value} if value else None
+                for index, value in enumerate(grouped[group])
+            ],
+        }
+        for group, colour in GROUPS
+    ]
     return {
         "title": {
             "text": "Number of UK taxes over time",
@@ -151,15 +245,35 @@ def build_option(categories: list[str], data: list[int], chart_start: date) -> d
             "top": 8,
         },
         "_tpaTooltip": {
-            "template": "{name}<br>Taxes in force: {y:0,0}",
+            "header": TOOLTIP_HEADER,
+            "template": TOOLTIP_ROW,
+            "skipNull": True,
         },
+        # The same dark tooltip as the lifespan timeline.
         "tooltip": {
             "trigger": "axis",
+            "confine": True,
+            "backgroundColor": "rgba(15,23,42,0.97)",
+            "borderColor": "rgba(148,163,184,0.45)",
+            "borderWidth": 1,
+            "padding": [12, 14],
+            "textStyle": {"color": "#f8fafc", "fontSize": 13},
+            "extraCssText": "border-radius:12px;box-shadow:0 18px 45px rgba(15,23,42,.34);",
+            "axisPointer": {"type": "line", "lineStyle": {"color": "#475569", "width": 1, "type": "solid"}},
+        },
+        "legend": {
+            "type": "scroll",
+            "top": 42,
+            "left": "center",
+            "itemWidth": 14,
+            "itemHeight": 10,
+            "textStyle": {"fontSize": 11, "color": "#334155"},
+            "data": [group for group, _ in GROUPS],
         },
         "grid": {
             "left": "6%",
             "right": "4%",
-            "top": 64,
+            "top": 100,
             "bottom": 48,
             "containLabel": True,
         },
@@ -168,9 +282,9 @@ def build_option(categories: list[str], data: list[int], chart_start: date) -> d
             "name": "Year",
             "nameLocation": "middle",
             "nameGap": 30,
-            "boundaryGap": False,
             "data": categories,
             "axisTick": {
+                "alignWithLabel": True,
                 "interval": CENTURY_CATEGORY_INTERVAL,
             },
             "axisLabel": {
@@ -190,25 +304,7 @@ def build_option(categories: list[str], data: list[int], chart_start: date) -> d
                 },
             },
         },
-        "series": [
-            {
-                "name": "Taxes in force",
-                "type": "line",
-                "step": "end",
-                "showSymbol": False,
-                "lineStyle": {
-                    "width": 3,
-                    "color": "#2563eb",
-                },
-                "areaStyle": {
-                    "color": "rgba(37, 99, 235, 0.12)",
-                },
-                "emphasis": {
-                    "focus": "series",
-                },
-                "data": data,
-            }
-        ],
+        "series": group_series,
     }
 
 
@@ -225,7 +321,7 @@ def main() -> None:
     parser.add_argument(
         "--exclude-future",
         action="store_true",
-        help="Exclude announced taxes that are not yet in force.",
+        help="Leave out taxes that are law but have not yet started.",
     )
     args = parser.parse_args()
 
@@ -238,7 +334,14 @@ def main() -> None:
         chart_start=chart_start,
         include_future=not args.exclude_future,
     )
-    option = build_option(categories, data, chart_start=chart_start)
+    grouped_categories, grouped = build_annual_series_by_group(
+        rows,
+        chart_start=chart_start,
+        include_future=not args.exclude_future,
+    )
+    assert grouped_categories == categories
+    assert [sum(grouped[group][i] for group in grouped) for i in range(len(categories))] == data
+    option = build_option(categories, grouped, data)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(option, indent=2) + "\n")
     print(f"Wrote {args.output}")

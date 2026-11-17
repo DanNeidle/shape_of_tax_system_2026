@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Build scatter chart: tax count vs tax revenue as % of GDP."""
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Plot each country's number of taxes against its tax revenue as a % of GDP, reading the bar chart's JSON, OECD Global Revenue Statistics and a Eurostat figure for Cyprus, and writing a CSV of the points and an ECharts scatter spec."""
 
 from __future__ import annotations
 
@@ -9,7 +11,8 @@ from pathlib import Path
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE / "data"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "country_comparison"
 COUNT_CHART = DATA_DIR / "country_tax_count_comparison_2024.json"
 OECD_CSV = DATA_DIR / "oecd_global_revenue_statistics_tax_gdp_2020_2024.csv"
 CYPRUS_EUROSTAT_JSON = DATA_DIR / "eurostat_cyprus_tax_gdp_2024.json"
@@ -53,11 +56,13 @@ COUNTRY_CODES = {
 
 
 def load_tax_counts() -> list[dict]:
+    # The counts come from the bar chart built by build_country_tax_count_bar.py.
     chart = json.loads(COUNT_CHART.read_text())
     return chart["series"][0]["data"]
 
 
 def load_oecd_latest() -> dict[str, tuple[int, float]]:
+    # Each country's most recent year with a value (2020 to 2024).
     latest: dict[str, tuple[int, float]] = {}
     with OECD_CSV.open(newline="") as f:
         for row in csv.DictReader(f):
@@ -150,6 +155,7 @@ def chart(data: list[dict]) -> dict:
             "label": label,
             "symbolSize": 11 if country in {"United Kingdom", "France", "Germany"} else 8,
         }
+        # France goes in its own series so a legend toggle can show or hide it. It starts hidden.
         if country == "France":
             france_point = point
         else:
@@ -166,6 +172,7 @@ def chart(data: list[dict]) -> dict:
             "top": 8,
             "textStyle": {"fontSize": 20, "fontWeight": 700, "color": "#111827"},
         },
+        # Not an ECharts option: read by the page that embeds the chart.
         "_tpaTooltip": {
             "template": "{name}<br>Tax revenue: {x:0.0}% of GDP<br>Taxes counted: {y:0}"
         },
@@ -247,8 +254,8 @@ def main() -> None:
     data = rows()
     write_csv(data)
     OUTPUT_JSON.write_text(json.dumps(chart(data), indent=2, ensure_ascii=False) + "\n")
-    print(f"Wrote {OUTPUT_CSV.relative_to(BASE)}")
-    print(f"Wrote {OUTPUT_JSON.relative_to(BASE)}")
+    print(f"Wrote {OUTPUT_CSV.name}")
+    print(f"Wrote {OUTPUT_JSON.name}")
 
 
 if __name__ == "__main__":

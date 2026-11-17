@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-"""Build the country tax-count bar chart.
-
-Input CSV columns:
-  country,tax_count,color
-"""
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Build the bar chart of how many taxes each country has, reading country_tax_counts.csv (columns country, tax_count, color) and writing an ECharts spec to country_tax_count_comparison_2024.json."""
 
 from __future__ import annotations
 
@@ -13,7 +11,8 @@ from pathlib import Path
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE / "data"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "country_comparison"
 INPUT = DATA_DIR / "country_tax_counts.csv"
 OUTPUT = DATA_DIR / "country_tax_count_comparison_2024.json"
 
@@ -21,7 +20,8 @@ OUTPUT = DATA_DIR / "country_tax_count_comparison_2024.json"
 def read_rows() -> list[dict]:
     with INPUT.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
-    rows.sort(key=lambda row: (int(row["tax_count"]), row["country"]))
+    # Ties keep the order they have in the CSV.
+    rows.sort(key=lambda row: int(row["tax_count"]))
     return rows
 
 
@@ -44,6 +44,7 @@ def build_chart(rows: list[dict]) -> dict:
             "textStyle": {"fontSize": 20, "fontWeight": 700, "color": "#111827"},
             "subtextStyle": {"fontSize": 12, "color": "#4B5563"},
         },
+        # Not an ECharts option: read by the page that embeds the chart.
         "_tpaTooltip": {"template": "{name}<br>Taxes counted: {x:0}"},
         "tooltip": {"trigger": "item"},
         "grid": {"left": 150, "right": 58, "top": 82, "bottom": 48, "containLabel": True},
@@ -62,7 +63,15 @@ def build_chart(rows: list[dict]) -> dict:
             "axisLabel": {"color": "#111827", "fontSize": 12},
             "axisTick": {"show": False},
         },
-        "series": [{"type": "bar", "data": data, "barWidth": 18}],
+        "series": [
+            {
+                "name": "Taxes",
+                "type": "bar",
+                "barMaxWidth": 18,
+                "label": {"show": True, "position": "right", "color": "#111827", "fontSize": 11, "formatter": "{c}"},
+                "data": data,
+            }
+        ],
     }
 
 

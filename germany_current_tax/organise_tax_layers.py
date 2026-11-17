@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Turn Germany's Eurostat tax lines into the chart's layered table, using BMF cash receipts to split out lines Eurostat groups together, reading the two source CSVs and the BMF workbook and writing germany_tax_revenue_layered_2024.csv."""
 import csv
 from collections import defaultdict
 from pathlib import Path
@@ -7,14 +10,15 @@ from openpyxl import load_workbook
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE / "data"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "germany_tax"
 
 EUROSTAT_INPUT = DATA_DIR / "germany_eurostat_tax_revenue_candidate_table_2024.csv"
 BMF_INPUT = DATA_DIR / "germany_bmf_cash_tax_revenue_2024.csv"
 BMF_WORKBOOK = DATA_DIR / "bmf_steuereinnahmen_2024_calendar_year.xlsx"
 OUTPUT = DATA_DIR / "germany_tax_revenue_layered_2024.csv"
 
-GDP_EUR = 4_305_300_000_000
+GDP_EUR = 4_305_300_000_000  # Germany's 2024 GDP
 
 FIELDNAMES = [
     "tax_name",
@@ -39,6 +43,8 @@ FIELDNAMES = [
 ]
 
 
+# One chart slice per Eurostat line, keyed by the line's German name. "layers" runs from the
+# inner ring outwards. Where a tax has a UK equivalent, we group it as the UK would.
 SIMPLE_RULES = {
     "Zölle": {
         "label": "Customs duties",
@@ -166,12 +172,26 @@ SIMPLE_RULES = {
         "classification": "Energy-security levy.",
         "explanation": "Levy used to fund strategic oil stocks.",
     },
+    "Grundsteuer A": {
+        "label": "Grundsteuer A",
+        "english": "Property tax (agricultural)",
+        "layers": ("Land", "Recurrent land and property taxes", "Property taxes", ""),
+        "classification": "Recurrent local tax on agricultural land (Land- und Forstwirtschaft).",
+        "explanation": "Local recurrent tax on agricultural land.",
+    },
+    "Grundsteuer B": {
+        "label": "Grundsteuer B",
+        "english": "Property tax (other)",
+        "layers": ("Land", "Recurrent land and property taxes", "Property taxes", ""),
+        "classification": "Recurrent local tax on other land and buildings (the bulk of German recurrent property tax).",
+        "explanation": "Local recurrent tax on non-agricultural land and buildings (the bulk of recurrent property tax).",
+    },
     "übrige Gemeindesteuern": {
         "label": "Other municipal taxes",
         "english": "Other municipal taxes",
         "layers": ("Other", "Small local taxes", "Other municipal taxes", ""),
         "classification": "Small residual local taxes retained because Eurostat records them as tax revenue.",
-        "explanation": "Other small municipal taxes not separately identified in the source table.",
+        "explanation": "Residual catch-all of small municipal taxes after separately showing Übernachtungsteuer, Zweitwohnungsteuer, Verpackungsteuer, Pferdesteuer and Schankerlaubnissteuer.",
     },
     "Emissionsberechtigungen": {
         "label": "Emissions allowances",
@@ -315,6 +335,7 @@ SIMPLE_RULES = {
     },
 }
 
+# One chart slice made from several Eurostat lines.
 GROUP_RULES = {
     "VAT": {
         "source_names": [
@@ -327,14 +348,6 @@ GROUP_RULES = {
         "layers": ("Goods/services", "VAT", "VAT", ""),
         "classification": "Direct UK equivalent: VAT. The Eurostat control includes import VAT and a VAT under-compensation adjustment.",
         "explanation": "Germany's value added tax, including import VAT and the national-accounts VAT adjustment.",
-    },
-    "Property tax": {
-        "source_names": ["Grundsteuer A", "Grundsteuer B"],
-        "label": "Property tax",
-        "english": "Property tax",
-        "layers": ("Land", "Recurrent land and property taxes", "Property taxes", ""),
-        "classification": "Direct UK equivalent: recurrent local taxes on land and buildings.",
-        "explanation": "Local recurrent tax on land and buildings.",
     },
     "Motor vehicle tax": {
         "source_names": ["Kfz-Steuer von Unternehmen", "Kraftfahrzeugsteuer von privaten Haushalten"],
@@ -378,6 +391,102 @@ GROUP_RULES = {
     },
 }
 
+# Named local taxes that Eurostat bundles into "übrige Gemeindesteuern". There are no
+# official national totals, so these are our estimates from 2024 city and Land reports.
+# Each is shown as its own slice and the same amount comes out of the residual line.
+LOCAL_TAX_ESTIMATES_SOURCE = "übrige Gemeindesteuern"
+LOCAL_TAX_ESTIMATES = [
+    {
+        "tax_name": "Übernachtungsteuer",
+        "amount": 200_000_000,
+        "label": "Overnight-stay tax",
+        "english": "Overnight-stay tax",
+        "english_explanation": "Local city tax on hotel and other paid overnight stays (also called Bettensteuer, Kulturförderabgabe, Beherbergungsteuer).",
+        "explanation": "Local city tax on paid overnight stays; levied by Berlin, Hamburg, Köln, Frankfurt, Hannover and many other cities.",
+        "layers": ("Goods/services", "Betting, gaming and entertainment", "Entertainment taxes", ""),
+        "classification": "Local consumption tax on tourism accommodation.",
+    },
+    {
+        "tax_name": "Zweitwohnungsteuer",
+        "amount": 150_000_000,
+        "label": "Second-home tax",
+        "english": "Second-home tax",
+        "english_explanation": "Local tax on ownership or rental of a second home.",
+        "explanation": "Local tax on second homes, levied in Berlin, Hamburg, Munich and many university towns.",
+        "layers": ("Land", "Recurrent land and property taxes", "Property taxes", ""),
+        "classification": "Local recurrent tax on second residences.",
+    },
+    {
+        "tax_name": "Verpackungsteuer",
+        "amount": 1_000_000,
+        "label": "Packaging tax",
+        "english": "Packaging tax",
+        "english_explanation": "Local tax on single-use packaging (Tübingen model, upheld by the Bundesverfassungsgericht in 2024).",
+        "explanation": "Local tax on single-use packaging; introduced by Tübingen and upheld by the German Constitutional Court in 2024.",
+        "layers": ("Environmental", "Waste and pollution", "Packaging taxes", ""),
+        "classification": "Local environmental tax on single-use packaging.",
+    },
+    {
+        "tax_name": "Pferdesteuer",
+        "amount": 200_000,
+        "label": "Horse tax",
+        "english": "Horse tax",
+        "english_explanation": "Local tax on horse ownership and use.",
+        "explanation": "Local tax on horses, levied by a small number of municipalities.",
+        "layers": ("Other", "Small local taxes", "Household local taxes", ""),
+        "classification": "Very small local tax in a handful of municipalities (e.g. Bad Sooden-Allendorf).",
+    },
+    {
+        "tax_name": "Schankerlaubnissteuer",
+        "amount": 1_000_000,
+        "label": "Drinks-licence tax",
+        "english": "Drinks-licence tax",
+        "english_explanation": "Local tax payable on grant of a licence to serve alcohol.",
+        "explanation": "Local tax paid on the grant of a licence to serve alcohol, still levied by some Länder.",
+        "layers": ("Other", "Small local taxes", "Business local taxes", ""),
+        "classification": "Local one-off tax on grant of an alcohol-service licence.",
+    },
+]
+LOCAL_TAX_ESTIMATES_TOTAL = sum(item["amount"] for item in LOCAL_TAX_ESTIMATES)
+LOCAL_TAX_SOURCE_TEXT = (
+    "TPA estimate from public 2024 city-/Land-level reports; previously bundled inside Eurostat "
+    "Übrige Gemeindesteuern (D214L C01) and reallocated for this chart to avoid undercounting named taxes."
+)
+LOCAL_TAX_NOTES = "Reallocated from the Eurostat Übrige Gemeindesteuern aggregate so each named local tax is counted separately."
+
+
+def make_local_tax_entries():
+    """One row per estimated local tax. revenue_eur is our estimate, not a Eurostat figure."""
+    rows = []
+    for item in LOCAL_TAX_ESTIMATES:
+        layer_1, layer_2, layer_3, layer_4 = item["layers"]
+        rows.append({
+            "tax_name": item["tax_name"],
+            "tax_name_english": item["english"],
+            "english_explanation": item["english_explanation"],
+            "revenue_eur": str(item["amount"]),
+            "revenue_pct_gdp": pct(item["amount"]),
+            "source_for_data": LOCAL_TAX_SOURCE_TEXT,
+            "notes": LOCAL_TAX_NOTES,
+            "chart_label_en": item["label"],
+            "layer_1": layer_1,
+            "layer_2": layer_2,
+            "layer_3": layer_3,
+            "layer_4": layer_4,
+            "classification_notes": item["classification"],
+            "display_explanation": item["explanation"],
+            "chart_include": "yes",
+            "chart_revenue_eur": str(item["amount"]),
+            "chart_revenue_pct_gdp": pct(item["amount"]),
+            "netted_adjustments_eur": "0",
+            "netting_notes": "",
+        })
+    return rows
+
+
+# Eurostat lines that bundle several taxes. We split each in proportion to the taxes' BMF
+# cash receipts. Components are (German name, chart label, English name, explanation,
+# layer_1, layer_2, layer_3).
 BMF_PROPORTION_SPLITS = [
     {
         "source_names": ["Alkoholsteuer / Branntweinabgaben / einschl. Alcopops ab 3. Quartal 2004"],
@@ -433,6 +542,7 @@ def bmf_amount(by_name, tax_name):
         row for row in by_name[tax_name]
         if row["is_total_or_memo"] == "no" and int(row["revenue_eur"]) > 0
     ]
+    # Prefer the main sheet where a tax appears on both.
     main_sheet_rows = [row for row in rows if "sheet: 1 Steuerarten" in row["source_for_data"]]
     if main_sheet_rows:
         rows = main_sheet_rows
@@ -447,9 +557,12 @@ def bmf_amount(by_name, tax_name):
 
 
 def solidarity_components():
+    # Eurostat has no separate line for the solidarity surcharge, so we take its 2024 cash
+    # receipts, by the tax it is charged on, from the BMF workbook.
     wb = load_workbook(BMF_WORKBOOK, read_only=True, data_only=True)
     ws = wb["3u4 weitere Angaben"]
     rows = list(ws.iter_rows(values_only=True))
+    # Spreadsheet row numbers. Column I holds the 2024 figure, in thousand euros.
     wanted_rows = {
         "wage": 18,
         "assessed": 20,
@@ -469,6 +582,7 @@ def solidarity_components():
         + values["corporation"]
         + values["capital_final"]
     )
+    # Put any rounding difference on the last component so the parts match the total.
     rounding_delta = values["total"] - component_total
     values["capital_final"] += rounding_delta
     component_total += rounding_delta
@@ -516,6 +630,7 @@ def make_entry(
     extra_source="",
     extra_notes="",
 ):
+    """Build one row of the layered table: revenue_eur is the Eurostat source total, chart_revenue_eur what the chart shows after any split or netting."""
     raw_value = row_total(source)
     if chart_value is None:
         chart_value = raw_value + netted
@@ -558,6 +673,7 @@ def make_bmf_split_entries(euro_by_name, bmf_by_name):
         total = row_total(source)
         bmf_values = [bmf_amount(bmf_by_name, component[0]) for component in split["components"]]
         bmf_total = sum(bmf_values)
+        # The last component takes the remainder, so the parts add up to the Eurostat line exactly.
         allocated = []
         running = 0
         for idx, value in enumerate(bmf_values):
@@ -605,6 +721,7 @@ def make_simple_entries(euro_by_name, solidarity):
     for rule in GROUP_RULES.values():
         add(rule["source_names"], rule)
 
+    # The solidarity surcharge gets its own slice, so take its share out of the taxes it is charged on.
     for name, rule in SIMPLE_RULES.items():
         adjustment = 0
         notes = ""
@@ -617,8 +734,16 @@ def make_simple_entries(euro_by_name, solidarity):
         elif name == "Körperschaftsteuer":
             adjustment = -solidarity["corporation"]
             notes = "BMF cash receipts identify this amount as the solidarity surcharge on corporation tax; it is shown separately."
+        elif name == LOCAL_TAX_ESTIMATES_SOURCE:
+            adjustment = -LOCAL_TAX_ESTIMATES_TOTAL
+            names = ", ".join(item["tax_name"] for item in LOCAL_TAX_ESTIMATES[:-1])
+            notes = (
+                f"Reduced by €{LOCAL_TAX_ESTIMATES_TOTAL:,} reallocated to {names} and "
+                f"{LOCAL_TAX_ESTIMATES[-1]['tax_name']} (each shown separately)."
+            )
         add([name], rule, adjustment, notes)
 
+    # Every Eurostat line must land somewhere, or the chart won't reconcile.
     split_names = {name for split in BMF_PROPORTION_SPLITS for name in split["source_names"]}
     used_names.update(split_names)
     missing = sorted(set(euro_by_name) - used_names)
@@ -648,6 +773,8 @@ def make_solidarity_entry(euro_by_name, solidarity):
 
 
 def apply_capital_solidarity_adjustment(rows, solidarity):
+    # Take the surcharge on capital income out of the two withholding-tax slices, in
+    # proportion to their size; the last takes the rounding.
     capital_adjustment = solidarity["capital_non_assessed"] + solidarity["capital_final"]
     capital_labels = {"Investment withholding", "Final withholding tax"}
     capital_total = sum(int(row["chart_revenue_eur"]) for row in rows if row["chart_label_en"] in capital_labels)
@@ -698,8 +825,10 @@ def main():
     apply_capital_solidarity_adjustment(split_rows, solidarity)
     rows.extend(split_rows)
     rows.append(make_solidarity_entry(euro_by_name, solidarity))
+    rows.extend(make_local_tax_entries())
     rows.sort(key=sort_key)
 
+    # The splits and netting move money between slices but must not change the total.
     source_total = sum(int(row["revenue_eur"]) for row in euro_rows)
     chart_total = sum(int(row["chart_revenue_eur"]) for row in rows if row["chart_include"] == "yes")
     if chart_total != source_total:

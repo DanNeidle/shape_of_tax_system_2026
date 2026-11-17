@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Check the layered French table (france_tax_revenue_layered_2024.csv) is ready to chart, stopping on the first problem; it writes nothing."""
 import csv
 from pathlib import Path
 
 
-GDP_EUR = 2_919_900_000_000
+GDP_EUR = 2_919_900_000_000  # France's 2024 GDP
+# Eurostat's 2024 total for France, net of D995 uncollectible tax. The chart must add up to it.
 EXPECTED_CHART_TOTAL = 1_321_460_000_000
 EXPECTED_LAYER_1 = {
     "Employment",
@@ -17,13 +21,16 @@ EXPECTED_LAYER_1 = {
 MAX_CHART_LABEL_LEN = 32
 
 BASE = Path(__file__).resolve().parent
-TABLE = BASE / "data" / "france_tax_revenue_layered_2024.csv"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "france_tax"
+TABLE = DATA_DIR / "france_tax_revenue_layered_2024.csv"
 
 
 def main():
     with TABLE.open(encoding="utf-8", newline="") as handle:
         rows = list(csv.DictReader(handle))
 
+    # The source table's 356 rows, less the overall Cour overlap row, which the layering drops.
     if len(rows) != 355:
         raise SystemExit(f"Unexpected row count: {len(rows)}")
 
@@ -61,6 +68,7 @@ def main():
     if missing_display_explanations:
         raise SystemExit(f"Included chart rows missing display explanations: {missing_display_explanations[:10]}")
 
+    # Tooltip text is for readers, so it shouldn't carry source codes or our working labels.
     banned_display_terms = [
         "Eurostat national-tax-list",
         "ESA code",
@@ -101,6 +109,7 @@ def main():
     if duplicate_sibling_labels:
         raise SystemExit(f"Duplicate sibling chart labels: {duplicate_sibling_labels}")
 
+    # The seven D995 rows are netted off other lines rather than charted.
     excluded_negative_rows = [
         row for row in rows
         if row["revenue_eur"]

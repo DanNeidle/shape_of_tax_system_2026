@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Extract Germany's 2024 tax revenue from Eurostat's National Tax Lists and the Federal Finance Ministry's (BMF) cash receipts table, writing germany_eurostat_tax_revenue_candidate_table_2024.csv and germany_bmf_cash_tax_revenue_2024.csv."""
 import csv
 import re
 from pathlib import Path
@@ -7,7 +10,8 @@ from openpyxl import load_workbook
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE / "data"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "germany_tax"
 
 EUROSTAT_NTL = DATA_DIR / "eurostat_national_tax_lists_2025_2026-04-22.xlsx"
 BMF_CASH_TAXES = DATA_DIR / "bmf_steuereinnahmen_2024_calendar_year.xlsx"
@@ -15,7 +19,7 @@ BMF_CASH_TAXES = DATA_DIR / "bmf_steuereinnahmen_2024_calendar_year.xlsx"
 EUROSTAT_OUTPUT = DATA_DIR / "germany_eurostat_tax_revenue_candidate_table_2024.csv"
 BMF_OUTPUT = DATA_DIR / "germany_bmf_cash_tax_revenue_2024.csv"
 
-GDP_EUR_M = 4_305_300
+GDP_EUR_M = 4_305_300  # Germany's 2024 GDP, EUR million
 
 EUROSTAT_SOURCE = (
     "Eurostat, National Tax Lists - individual taxes, updated 22 Apr 2026; "
@@ -26,6 +30,7 @@ BMF_SOURCE = (
     "file: code/data/germany_tax/bmf_steuereinnahmen_2024_calendar_year.xlsx"
 )
 
+# Social-contribution codes we keep at total level where Eurostat gives no finer split.
 SOCIAL_CONTRIBUTION_LEAF_CODES = {
     "D611C",
     "D612",
@@ -35,6 +40,8 @@ SOCIAL_CONTRIBUTION_LEAF_CODES = {
     "D613V",
 }
 
+# D995: tax and social contributions assessed but unlikely to be collected. We keep these
+# totals as negative rows.
 UNCOLLECTIBLE_ADJUSTMENT_CODES = {
     "D995B",
     "D995C",
@@ -45,6 +52,7 @@ UNCOLLECTIBLE_ADJUSTMENT_CODES = {
     "D995FN",
 }
 
+# Eurostat's economic-function and environmental/property tags.
 ECONOMIC_FUNCTION = {
     "C": "consumption",
     "AT": "alcohol/tobacco",
@@ -63,6 +71,7 @@ ECONOMIC_FUNCTION = {
     "_Z": "not classified",
 }
 
+# BMF total lines. We flag them, and any other line ending "insgesamt", so they aren't summed.
 BMF_TOTAL_LABELS = {
     "Gemeinschaftliche Steuern insgesamt",
     "Gewerbesteuerumlagen insgesamt",
@@ -106,6 +115,7 @@ def eurostat_explanation(sto, economic_function, property_environment_code):
 def read_eurostat_rows():
     wb = load_workbook(EUROSTAT_NTL, read_only=True, data_only=True)
     ws = wb["DE"]
+    # Row 8 holds the column headings, with years as integers; data starts at row 9.
     header = list(ws.iter_rows(min_row=8, max_row=8, values_only=True))[0]
     year_cols = {value: idx for idx, value in enumerate(header) if isinstance(value, int)}
     col_2024 = year_cols[2024]
@@ -126,6 +136,8 @@ def read_eurostat_rows():
 
         if not sto or not tax_name:
             continue
+        # An unindented line with no figure is a heading; the indented lines under it are its
+        # parts, so we prefix their names with the heading's.
         if detail != "_T" and not raw_tax_name[:1].isspace() and not isinstance(value_2024, (int, float)):
             current_parent_by_sto[sto] = (tax_name, tax_name_english)
         if raw_tax_name[:1].isspace() and sto in current_parent_by_sto:
@@ -133,6 +145,8 @@ def read_eurostat_rows():
             tax_name = f"{parent_name} - {tax_name}"
             tax_name_english = f"{parent_name_english} - {tax_name_english}"
 
+        # DETAILS "_T" marks the total for an ESA code. We keep individual taxes, and
+        # totals only for the codes listed above.
         keep = False
         is_uncollectible_adjustment = False
         note_parts = []
@@ -155,6 +169,7 @@ def read_eurostat_rows():
             tax_name = f"Less: {tax_name}"
             tax_name_english = f"Less: {tax_name_english}"
 
+        # Skip lines that repeat an earlier one's name and value.
         key = (normalise_key(tax_name), normalise_key(tax_name_english), round(float(value_2024), 6))
         if key in seen:
             continue
@@ -174,6 +189,8 @@ def read_eurostat_rows():
 
 
 def bmf_row_name(raw):
+    # The BMF sheets indent sub-items into later columns, so take the right-most name,
+    # skipping connectors such as "davon:" ("of which") and "+".
     for idx in (4, 3, 2, 1):
         value = clean_text(raw[idx])
         if value and value != "davon:" and value != "+":
@@ -189,6 +206,8 @@ def read_bmf_cash_rows():
         current_group = ""
         for raw in ws.iter_rows(values_only=True):
             values = list(raw) + [None] * 12
+            # values[8] (column I) is the 2024 annual figure, in thousand euros. A name in
+            # column B with no figure is a group heading.
             if clean_text(values[1]) and not isinstance(values[8], (int, float)):
                 current_group = clean_text(values[1])
             name = bmf_row_name(values)

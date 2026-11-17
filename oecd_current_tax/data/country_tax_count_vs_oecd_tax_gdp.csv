@@ -1,10 +1,10 @@
 country,ref_area,tax_count,tax_gdp_pct,tax_gdp_year,tax_gdp_source,color
 Estonia,EST,34,35.231248,2024,OECD Global Revenue Statistics,#9CA3AF
 Lithuania,LTU,35,33.129851,2024,OECD Global Revenue Statistics,#9CA3AF
-Germany,DEU,54,38.021492,2024,OECD Global Revenue Statistics,#2F855A
 Latvia,LVA,54,34.90567,2024,OECD Global Revenue Statistics,#9CA3AF
-Iceland,ISL,61,36.948753,2024,OECD Global Revenue Statistics,#9CA3AF
+Germany,DEU,60,38.021492,2024,OECD Global Revenue Statistics,#2F855A
 Ireland,IRL,61,21.694294,2024,OECD Global Revenue Statistics,#6B7280
+Iceland,ISL,61,36.948753,2024,OECD Global Revenue Statistics,#9CA3AF
 Finland,FIN,62,42.217254,2024,OECD Global Revenue Statistics,#9CA3AF
 Malta,MLT,67,28.74159311,2024,OECD Global Revenue Statistics,#9CA3AF
 Bulgaria,BGR,69,30.45549451,2024,OECD Global Revenue Statistics,#9CA3AF

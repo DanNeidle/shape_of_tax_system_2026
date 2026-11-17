@@ -247,79 +247,81 @@ year_label	date	pct_gdp	measure	source	confidence	note
 1945-46	1945-07-01	39.475952	Public sector current receipts	OBR historical public finances database	medium	Used before the OBR National Accounts taxes line begins; includes some non-tax current receipts.
 1946-47	1946-07-01	35.636796	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
 1947-48	1947-07-01	34.406243	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1948-49	1948-07-01	37.207877	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1949-50	1949-07-01	36.929904	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1950-51	1950-07-01	36.075353	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1951-52	1951-07-01	34.782913	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1952-53	1952-07-01	33.953399	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1953-54	1953-07-01	31.705124	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1954-55	1954-07-01	30.913016	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1955-56	1955-07-01	29.647984	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1956-57	1956-07-01	29.250543	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1957-58	1957-07-01	28.917322	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1958-59	1958-07-01	29.536299	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1959-60	1959-07-01	28.433580	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1960-61	1960-07-01	27.885590	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1961-62	1961-07-01	29.850746	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1962-63	1962-07-01	29.645852	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1963-64	1963-07-01	28.692247	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1964-65	1964-07-01	29.082511	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1965-66	1965-07-01	30.689977	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1966-67	1966-07-01	31.387811	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1967-68	1967-07-01	32.600310	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1968-69	1968-07-01	33.806490	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1969-70	1969-07-01	35.119832	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1970-71	1970-07-01	33.696443	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1971-72	1971-07-01	32.059201	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1972-73	1972-07-01	29.826744	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1973-74	1973-07-01	29.793756	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1974-75	1974-07-01	32.490070	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1975-76	1975-07-01	33.351813	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1976-77	1976-07-01	32.756461	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1977-78	1977-07-01	31.611960	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1978-79	1978-07-01	30.370062	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1979-80	1979-07-01	31.181039	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1980-81	1980-07-01	32.104459	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1981-82	1981-07-01	34.014882	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1982-83	1982-07-01	33.714483	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1983-84	1983-07-01	33.036781	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1984-85	1984-07-01	33.611645	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1985-86	1985-07-01	32.700453	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1986-87	1986-07-01	32.480383	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1987-88	1987-07-01	31.648569	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1988-89	1988-07-01	31.144360	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1989-90	1989-07-01	30.659330	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1990-91	1990-07-01	30.377963	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1991-92	1991-07-01	30.267823	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1992-93	1992-07-01	29.090801	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1993-94	1993-07-01	28.334611	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1994-95	1994-07-01	29.334288	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1995-96	1995-07-01	30.079853	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1996-97	1996-07-01	29.624530	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1997-98	1997-07-01	31.180177	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1998-99	1998-07-01	31.775899	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-1999-00	1999-07-01	32.529518	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2000-01	2000-07-01	33.067436	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2001-02	2001-07-01	32.482856	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2002-03	2002-07-01	31.443277	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2003-04	2003-07-01	32.282909	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2004-05	2004-07-01	32.941388	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2005-06	2005-07-01	33.299084	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2006-07	2006-07-01	33.759240	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2007-08	2007-07-01	33.748238	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2008-09	2008-07-01	32.221734	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2009-10	2009-07-01	32.271056	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2010-11	2010-07-01	33.166306	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2011-12	2011-07-01	33.482953	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2012-13	2012-07-01	32.759790	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2013-14	2013-07-01	32.647711	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2014-15	2014-07-01	32.607547	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2015-16	2015-07-01	32.708599	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2016-17	2016-07-01	33.440686	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2017-18	2017-07-01	33.309367	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2018-19	2018-07-01	33.769639	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2019-20	2019-07-01	33.055588	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2020-21	2020-07-01	34.030387	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2021-22	2021-07-01	35.544442	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2022-23	2022-07-01	36.333756	National Accounts taxes	OBR historical public finances database	high	Direct OBR historical public finances National Accounts taxes line.
-2024-25	2024-07-01	34.536	National Accounts taxes	OBR March 2026 EFO Table A.5 / nominal GDP Table A.3	high	Current chart control total: £1,013,286m National Accounts taxes / £2,934,021m nominal GDP.
+1948-49	1948-07-01	37.207877	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1949-50	1949-07-01	36.929904	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1950-51	1950-07-01	36.075353	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1951-52	1951-07-01	34.782913	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1952-53	1952-07-01	33.953399	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1953-54	1953-07-01	31.705124	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1954-55	1954-07-01	30.913016	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1955-56	1955-07-01	29.644955	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1956-57	1956-07-01	29.247779	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1957-58	1957-07-01	28.913468	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1958-59	1958-07-01	29.529971	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1959-60	1959-07-01	28.426722	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1960-61	1960-07-01	27.882450	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1961-62	1961-07-01	29.843323	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1962-63	1962-07-01	29.639814	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1963-64	1963-07-01	28.688653	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1964-65	1964-07-01	29.075838	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1965-66	1965-07-01	30.683425	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1966-67	1966-07-01	31.382313	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1967-68	1967-07-01	32.598777	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1968-69	1968-07-01	33.805768	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1969-70	1969-07-01	35.124666	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1970-71	1970-07-01	33.698194	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1971-72	1971-07-01	32.060194	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1972-73	1972-07-01	29.824727	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1973-74	1973-07-01	29.790880	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1974-75	1974-07-01	32.489409	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1975-76	1975-07-01	33.353745	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1976-77	1976-07-01	32.760150	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1977-78	1977-07-01	31.619573	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1978-79	1978-07-01	30.379378	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1979-80	1979-07-01	31.193643	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1980-81	1980-07-01	32.109379	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1981-82	1981-07-01	33.969452	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1982-83	1982-07-01	33.674179	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1983-84	1983-07-01	32.988144	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1984-85	1984-07-01	33.550804	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1985-86	1985-07-01	32.640222	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1986-87	1986-07-01	32.436953	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1987-88	1987-07-01	31.588707	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1988-89	1988-07-01	31.064925	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1989-90	1989-07-01	30.595449	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1990-91	1990-07-01	30.310919	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1991-92	1991-07-01	30.247675	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1992-93	1992-07-01	28.979258	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1993-94	1993-07-01	28.317969	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1994-95	1994-07-01	29.256863	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1995-96	1995-07-01	30.077630	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1996-97	1996-07-01	29.560393	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1997-98	1997-07-01	31.022539	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1998-99	1998-07-01	31.670115	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+1999-00	1999-07-01	32.453512	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2000-01	2000-07-01	32.970036	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2001-02	2001-07-01	32.298538	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2002-03	2002-07-01	31.414722	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2003-04	2003-07-01	32.224791	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2004-05	2004-07-01	32.840123	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2005-06	2005-07-01	33.238571	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2006-07	2006-07-01	33.635453	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2007-08	2007-07-01	33.642975	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2008-09	2008-07-01	32.022065	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2009-10	2009-07-01	32.152871	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2010-11	2010-07-01	33.125812	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2011-12	2011-07-01	33.329328	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2012-13	2012-07-01	32.700437	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2013-14	2013-07-01	32.595930	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2014-15	2014-07-01	32.465889	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2015-16	2015-07-01	32.682833	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2016-17	2016-07-01	33.457845	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2017-18	2017-07-01	33.214052	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2018-19	2018-07-01	33.640875	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2019-20	2019-07-01	32.926092	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2020-21	2020-07-01	33.799543	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2021-22	2021-07-01	34.737281	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2022-23	2022-07-01	35.264105	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2023-24	2023-07-01	34.991154	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2024-25	2024-07-01	34.589806	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.
+2025-26	2025-07-01	35.985613	National Accounts taxes	OBR public finances databank, October 2026 EFO	high	National Accounts taxes as a percentage of GDP.

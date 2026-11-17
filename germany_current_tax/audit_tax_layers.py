@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Check the layered German table (germany_tax_revenue_layered_2024.csv) is ready to chart and still adds up to the Eurostat total, stopping on the first problem; it writes nothing."""
 import csv
 from collections import defaultdict
 from pathlib import Path
 
 
-GDP_EUR = 4_305_300_000_000
+GDP_EUR = 4_305_300_000_000  # Germany's 2024 GDP
+# Eurostat's 2024 total for Germany. The chart must add up to it.
 EXPECTED_CHART_TOTAL = 1_816_514_000_000
 EXPECTED_LAYER_1 = {
     "Employment",
@@ -19,7 +23,8 @@ EXPECTED_ROWS = 60
 MAX_CHART_LABEL_LEN = 32
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE / "data"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "germany_tax"
 TABLE = DATA_DIR / "germany_tax_revenue_layered_2024.csv"
 BMF_TABLE = DATA_DIR / "germany_bmf_cash_tax_revenue_2024.csv"
 EUROSTAT_TABLE = DATA_DIR / "germany_eurostat_tax_revenue_candidate_table_2024.csv"
@@ -73,6 +78,7 @@ def main():
     if missing_display_explanations:
         raise SystemExit(f"Included chart rows missing display explanations: {missing_display_explanations[:10]}")
 
+    # Tooltip text is for readers, so it shouldn't name sources or carry their jargon.
     banned_display_terms = [
         "Eurostat",
         "National Tax Lists",
@@ -128,10 +134,12 @@ def main():
     if abs(pct - 42.192506909391914) > 0.0000001:
         raise SystemExit(f"Chart GDP percentage mismatch: {pct}")
 
+    # The solidarity surcharge is split out of the income, capital-income and corporation tax lines.
     solidarity_rows = [row for row in rows if row["chart_label_en"] == "Solidarity surcharge"]
     if len(solidarity_rows) != 1 or int(solidarity_rows[0]["chart_revenue_eur"]) != 12_634_294_172:
         raise SystemExit("Solidarity surcharge split not found or has unexpected value")
 
+    # Negative lines in the BMF cash table must not reach the chart.
     bmf_negative_rows = [
         row for row in bmf_rows
         if row["is_total_or_memo"] == "no" and int(row["revenue_eur"]) < 0

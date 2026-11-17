@@ -145,32 +145,6 @@
           "symbolSize": 8
         },
         {
-          "name": "Germany",
-          "value": [
-            38.021,
-            54
-          ],
-          "tax_gdp_year": 2024,
-          "tax_gdp_source": "OECD Global Revenue Statistics",
-          "itemStyle": {
-            "color": "#2F855A",
-            "borderColor": "#ffffff",
-            "borderWidth": 1.5
-          },
-          "label": {
-            "show": true,
-            "formatter": "Germany",
-            "position": "right",
-            "distance": 6,
-            "fontSize": 10,
-            "color": "#111827",
-            "textBorderColor": "rgba(255,255,255,0.88)",
-            "textBorderWidth": 3,
-            "fontWeight": 800
-          },
-          "symbolSize": 11
-        },
-        {
           "name": "Latvia",
           "value": [
             34.906,
@@ -196,29 +170,30 @@
           "symbolSize": 8
         },
         {
-          "name": "Iceland",
+          "name": "Germany",
           "value": [
-            36.949,
-            61
+            38.021,
+            60
           ],
           "tax_gdp_year": 2024,
           "tax_gdp_source": "OECD Global Revenue Statistics",
           "itemStyle": {
-            "color": "#9CA3AF",
+            "color": "#2F855A",
             "borderColor": "#ffffff",
             "borderWidth": 1.5
           },
           "label": {
             "show": true,
-            "formatter": "Iceland",
+            "formatter": "Germany",
             "position": "right",
             "distance": 6,
             "fontSize": 10,
             "color": "#111827",
             "textBorderColor": "rgba(255,255,255,0.88)",
-            "textBorderWidth": 3
+            "textBorderWidth": 3,
+            "fontWeight": 800
           },
-          "symbolSize": 8
+          "symbolSize": 11
         },
         {
           "name": "Ireland",
@@ -236,6 +211,31 @@
           "label": {
             "show": true,
             "formatter": "Ireland",
+            "position": "right",
+            "distance": 6,
+            "fontSize": 10,
+            "color": "#111827",
+            "textBorderColor": "rgba(255,255,255,0.88)",
+            "textBorderWidth": 3
+          },
+          "symbolSize": 8
+        },
+        {
+          "name": "Iceland",
+          "value": [
+            36.949,
+            61
+          ],
+          "tax_gdp_year": 2024,
+          "tax_gdp_source": "OECD Global Revenue Statistics",
+          "itemStyle": {
+            "color": "#9CA3AF",
+            "borderColor": "#ffffff",
+            "borderWidth": 1.5
+          },
+          "label": {
+            "show": true,
+            "formatter": "Iceland",
             "position": "right",
             "distance": 6,
             "fontSize": 10,

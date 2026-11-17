@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Build an ECharts line chart for UK tax count and receipts/GDP over time."""
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Chart the number of UK taxes in force each year against tax receipts as a share of GDP.
+
+The count is a stepped line on the left axis; receipts are a line on the right axis.
+"""
 
 from __future__ import annotations
 
@@ -19,10 +24,11 @@ from build_tax_lifespan_count_chart import (
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_RECEIPTS_INPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_receipts_gdp_share.tsv"
-DEFAULT_OUTPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_count_and_gdp_over_time.json"
+DEFAULT_OUTPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_count_and_gdp_over_time_2026_11.json"
 
 
 def load_receipts_by_year(path: Path) -> dict[str, float]:
+    """Read receipts as % of GDP, with each fiscal year filed under the year it starts."""
     with path.open(newline="") as handle:
         rows = list(csv.DictReader(handle, delimiter="\t"))
 
@@ -34,6 +40,7 @@ def load_receipts_by_year(path: Path) -> dict[str, float]:
 
 
 def build_receipts_series(categories: list[str], receipts_by_year: dict[str, float]) -> list[float | None]:
+    """Match receipts to the chart's years, with None where there is no figure."""
     return [receipts_by_year.get(year) for year in categories]
 
 
@@ -133,6 +140,7 @@ def build_option(
                 "type": "line",
                 "yAxisIndex": 1,
                 "showSymbol": False,
+                # Bridge any years with no figure rather than break the line.
                 "connectNulls": True,
                 "lineStyle": {
                     "width": 3,
@@ -161,7 +169,7 @@ def main() -> None:
     parser.add_argument(
         "--exclude-future",
         action="store_true",
-        help="Exclude announced taxes that are not yet in force.",
+        help="Leave out taxes that are law but have not yet started.",
     )
     args = parser.parse_args()
 

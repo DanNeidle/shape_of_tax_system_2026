@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Build the table of French taxes and their 2024 revenue from Eurostat's National Tax Lists and the Cour des comptes inventory of low-yield taxes, writing france_tax_revenue_candidate_table_2024.csv."""
 import csv
 import re
 from pathlib import Path
@@ -6,13 +9,14 @@ from pathlib import Path
 from openpyxl import load_workbook
 
 
-GDP_EUR_M = 2_919_900
-# INSEE annual-average CPI inflation: 2020 +0.5%, 2021 +1.6%,
-# 2022 +5.2%, 2023 +4.9%, 2024 +2.0%.
+GDP_EUR_M = 2_919_900  # France's 2024 GDP, EUR million
+# Uprates Cour 2019 yields where there is no 2024 figure. INSEE annual-average CPI
+# inflation: 2020 +0.5%, 2021 +1.6%, 2022 +5.2%, 2023 +4.9%, 2024 +2.0%.
 CPI_UPRATING_2019_TO_2024 = 1.005 * 1.016 * 1.052 * 1.049 * 1.020
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE / "data"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "france_tax"
 EUROSTAT_NTL = DATA_DIR / "eurostat_national_tax_lists_2025_2026-04-22.xlsx"
 COUR_LOW_YIELD = DATA_DIR / "20250417-annexe-listing-des-taxes-concernees.xlsx"
 OUTPUT = DATA_DIR / "france_tax_revenue_candidate_table_2024.csv"
@@ -30,6 +34,7 @@ PLF2025_TAXES_AFFECTEES_SOURCE = (
     "file: code/data/france_tax/plf2025_voies_moyens_taxes_affectees.xls"
 )
 
+# Exact 2024 yields from other sources, for Cour taxes the annex gives no 2024 figure for.
 SUPPLEMENTAL_2024_YIELDS_EUR = {
     "Droit de licence sur la rémunération des débitants de tabac": {
         "amount_eur": 360_118_595,
@@ -38,6 +43,7 @@ SUPPLEMENTAL_2024_YIELDS_EUR = {
     },
 }
 
+# Social-contribution codes that Eurostat doesn't split further for France, so we keep their totals.
 SOCIAL_CONTRIBUTION_LEAF_CODES = {
     "D611C",
     "D612",
@@ -47,6 +53,8 @@ SOCIAL_CONTRIBUTION_LEAF_CODES = {
     "D613V",
 }
 
+# D995: tax and social contributions assessed but unlikely to be collected. We keep these
+# totals as negative rows to get from amounts assessed to amounts collected.
 UNCOLLECTIBLE_ADJUSTMENT_CODES = {
     "D995B",
     "D995C",
@@ -57,6 +65,7 @@ UNCOLLECTIBLE_ADJUSTMENT_CODES = {
     "D995FN",
 }
 
+# English for the Cour annex's categories, with and without accents.
 OBJECTIVE = {
     "Correction défaillance marché": "market-failure correction",
     "Correction defaillance marche": "market-failure correction",
@@ -81,6 +90,7 @@ BASE_EN = {
     "Masse salariale": "payroll",
 }
 
+# Eurostat's economic-function and environmental/property tags.
 ECONOMIC_FUNCTION = {
     "C": "consumption",
     "AT": "alcohol/tobacco",
@@ -118,6 +128,7 @@ def eur_and_pct(value_m):
         return "", ""
     if isinstance(value_m, str):
         marker = value_m.strip().upper()
+        # Text markers such as "L" and "M" mean there is no figure.
         if marker in {"", "L", "M"}:
             return "", ""
         value_m = float(value_m.replace(",", "."))
@@ -155,6 +166,7 @@ def eurostat_explanation(row):
 def read_eurostat_rows():
     wb = load_workbook(EUROSTAT_NTL, read_only=True, data_only=True)
     ws = wb["FR"]
+    # Row 8 holds the column headings, with years as integers; data starts at row 9.
     header = list(ws.iter_rows(min_row=8, max_row=8, values_only=True))[0]
     year_cols = {value: idx for idx, value in enumerate(header) if isinstance(value, int)}
     col_2024 = year_cols[2024]
@@ -175,6 +187,8 @@ def read_eurostat_rows():
 
         if not sto or not tax_name:
             continue
+        # An unindented line with no figure is a heading; the indented lines under it are its
+        # parts, so we prefix their names with the heading's.
         if detail != "_T" and not raw_tax_name[:1].isspace() and not isinstance(value_2024, (int, float)):
             current_parent_by_sto[sto] = (tax_name, tax_name_english)
         if raw_tax_name[:1].isspace() and sto in current_parent_by_sto:
@@ -182,6 +196,8 @@ def read_eurostat_rows():
             tax_name = f"{parent_name} - {tax_name}"
             tax_name_english = f"{parent_name_english} - {tax_name_english}"
 
+        # DETAILS "_T" marks the total for an ESA code. We keep individual taxes, and
+        # totals only for the codes listed above.
         keep = False
         is_uncollectible_adjustment = False
         note_parts = []
@@ -206,6 +222,7 @@ def read_eurostat_rows():
             tax_name = f"Less: {tax_name}"
             tax_name_english = f"Less: {tax_name_english}"
 
+        # Skip lines that repeat an earlier one's name and value.
         key = (normalise_key(tax_name), normalise_key(tax_name_english), round(float(value_2024), 6))
         if key in seen:
             continue
@@ -258,8 +275,8 @@ def low_yield_explanation(raw):
 
 
 def english_name_for_low_yield(raw):
-    # The Cour annex does not provide official English names. Use a clean
-    # descriptive label from structured fields rather than a brittle legal-title translation.
+    # The Cour annex has no official English names, so we build a descriptive label from
+    # its structured fields rather than attempt a translation of the legal title.
     objective = OBJECTIVE.get(clean_text(raw["Objectif"]), clean_text(raw["Objectif"]).lower())
     payer = PAYER.get(clean_text(raw["Redevable"]), clean_text(raw["Redevable"]).lower())
     base = BASE_EN.get(clean_text(raw["Assiette"]), clean_text(raw["Assiette"]).lower())
@@ -284,9 +301,12 @@ def read_low_yield_rows():
         status = clean_text(rec.get("Etat"))
         if not tax_name:
             continue
+        # Keep taxes in force, or created, between 2019 and 2024.
         if status not in {"En vigueur entre 2019 et 2024", "Créée entre 2019 et 2024"}:
             continue
 
+        # 2024 yield: the Cour's own figure if it has one, then a supplemental figure,
+        # then the Cour's 2019 figure uprated by CPI. Otherwise it stays blank.
         value_2024 = rec.get("Enjeu 2024")
         value_2019 = rec.get("Enjeu 2019")
         estimated_2024_m = None
@@ -348,6 +368,8 @@ def read_low_yield_rows():
 
 
 def overlap_adjustment_row(low_yield_rows):
+    # Eurostat's lines already include the Cour taxes. This negative row cancels the Cour
+    # yields so the whole table can be summed without double counting.
     known_total_eur = sum(int(row["revenue_eur"]) for row in low_yield_rows if row["revenue_eur"])
     known_total_m = known_total_eur / 1_000_000
     revenue_eur, revenue_pct_gdp = eur_and_pct(-known_total_m)

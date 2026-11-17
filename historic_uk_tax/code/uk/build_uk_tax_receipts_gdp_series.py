@@ -1,43 +1,58 @@
 #!/usr/bin/env python3
-"""Build a long-run UK tax/public-receipts share-of-GDP series."""
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Stitch together a long-run series of UK tax receipts as a share of GDP from two OBR workbooks."""
 
 from __future__ import annotations
 
 import csv
-import shutil
-import tempfile
-import urllib.request
 from pathlib import Path
 
 from openpyxl import load_workbook
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_OUTPUT = PROJECT_ROOT / "code/data/uk_tax/uk_tax_receipts_gdp_share.tsv"
-OBR_HISTORICAL_PUBLIC_FINANCES_URL = (
-    "https://obr.uk/docs/dlm_uploads/Historical-public-finances-database.xlsx"
-)
-
-# The OBR historical workbook stops at 2022-23. This is the same OBR/ONS current
-# National Accounts taxes control already used in the current UK sunburst chart.
-LATEST_NATIONAL_ACCOUNTS_TAXES_POINT = {
-    "year_label": "2024-25",
-    "date": "2024-07-01",
-    "pct_gdp": "34.536",
-    "measure": "National Accounts taxes",
-    "source": "OBR March 2026 EFO Table A.5 / nominal GDP Table A.3",
-    "confidence": "high",
-    "note": "Current chart control total: £1,013,286m National Accounts taxes / £2,934,021m nominal GDP.",
-}
+DATA_DIR = PROJECT_ROOT / "code/data/uk_tax"
+DEFAULT_OUTPUT = DATA_DIR / "uk_tax_receipts_gdp_share.tsv"
+# Both workbooks are downloaded from the OBR website, obr.uk.
+OBR_HISTORICAL_PUBLIC_FINANCES = DATA_DIR / "obr.uk - Historical-public-finances-database.xlsx"
+OBR_DATABANK = DATA_DIR / "obr.uk - PSF_aggregates_databank_Oct_EFO.xlsx"
+# The databank starts in 1948-49 and has the latest ONS revisions, so it takes
+# over from then. Years after 2025-26 are forecasts, so we stop there.
+DATABANK_FIRST_YEAR = 1948
+LAST_OUTTURN_YEAR = "2025-26"
 
 
-def download_workbook(url: str) -> Path:
-    tmp = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
-    tmp.close()
-    request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(request) as response, Path(tmp.name).open("wb") as handle:
-        shutil.copyfileobj(response, handle)
-    return Path(tmp.name)
+def databank_rows() -> list[dict[str, str]]:
+    """National Accounts taxes as % of GDP from the databank, 1948-49 to 2025-26."""
+    workbook = load_workbook(OBR_DATABANK, read_only=True, data_only=True)
+    sheet_rows = list(workbook["Aggregates (per cent of GDP)"].iter_rows(values_only=True))
+    # Column headings are on the fourth row.
+    header = sheet_rows[3]
+    column = [i for i, cell in enumerate(header) if isinstance(cell, str) and cell.strip() == "National account taxes"]
+    assert len(column) == 1, column
+    rows = []
+    for row in sheet_rows[4:]:
+        label = row[1]
+        # Keep only rows labelled with a fiscal year, such as "1948-49".
+        if not isinstance(label, str) or "-" not in label or not label[:4].isdigit():
+            continue
+        value = row[column[0]]
+        if not value_is_number(value) or label > LAST_OUTTURN_YEAR:
+            continue
+        rows.append(
+            {
+                "year_label": label,
+                "date": midpoint_date(label),
+                "pct_gdp": f"{float(value):.6f}",
+                "measure": "National Accounts taxes",
+                "source": "OBR public finances databank, October 2026 EFO",
+                "confidence": "high",
+                "note": "National Accounts taxes as a percentage of GDP.",
+            }
+        )
+    assert rows[0]["year_label"] == "1948-49" and rows[-1]["year_label"] == LAST_OUTTURN_YEAR
+    return rows
 
 
 def fiscal_year_start(label: str) -> int:
@@ -45,6 +60,7 @@ def fiscal_year_start(label: str) -> int:
 
 
 def midpoint_date(label: str) -> str:
+    """Plot a fiscal year ("1948-49") at 1 July of the year it starts."""
     return f"{fiscal_year_start(label):04d}-07-01"
 
 
@@ -53,6 +69,14 @@ def value_is_number(value: object) -> bool:
 
 
 def build_rows(workbook_path: Path) -> list[dict[str, str]]:
+    """The whole series: the historical database up to 1947-48, then the databank.
+
+    Before 1948-49 each year takes the best measure the historical database has:
+    National Accounts taxes (from 1946-47), then public sector current receipts
+    (from 1900-01), then central government receipts. The two fallbacks are not
+    the same measure as National Accounts taxes, so they are marked medium
+    confidence.
+    """
     workbook = load_workbook(workbook_path, read_only=True, data_only=True)
     sheet = workbook["Receipts (per cent of GDP)"]
 
@@ -63,11 +87,14 @@ def build_rows(workbook_path: Path) -> list[dict[str, str]]:
             continue
 
         start_year = fiscal_year_start(year_label)
+        if start_year >= DATABANK_FIRST_YEAR:
+            continue
         measure = ""
         pct_gdp = None
         confidence = "high"
         note = ""
 
+        # Columns Z, Y and V of the sheet.
         national_accounts_taxes = row[25]
         public_sector_current_receipts = row[24]
         central_government_receipts = row[21]
@@ -102,7 +129,7 @@ def build_rows(workbook_path: Path) -> list[dict[str, str]]:
             }
         )
 
-    rows.append(LATEST_NATIONAL_ACCOUNTS_TAXES_POINT)
+    rows.extend(databank_rows())
     return sorted(rows, key=lambda row: row["date"])
 
 
@@ -116,11 +143,7 @@ def write_rows(rows: list[dict[str, str]], output: Path) -> None:
 
 
 def main() -> None:
-    workbook_path = download_workbook(OBR_HISTORICAL_PUBLIC_FINANCES_URL)
-    try:
-        rows = build_rows(workbook_path)
-    finally:
-        workbook_path.unlink(missing_ok=True)
+    rows = build_rows(OBR_HISTORICAL_PUBLIC_FINANCES)
 
     write_rows(rows, DEFAULT_OUTPUT)
     print(f"Wrote {DEFAULT_OUTPUT}")

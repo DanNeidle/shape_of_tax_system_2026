@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Check the French source table (france_tax_revenue_candidate_table_2024.csv) against expected row counts, GDP shares and totals, stopping on the first problem; it writes nothing."""
 import csv
 from pathlib import Path
 
 
-GDP_EUR = 2_919_900_000_000
+GDP_EUR = 2_919_900_000_000  # France's 2024 GDP
 BASE = Path(__file__).resolve().parent
-TABLE = BASE / "data" / "france_tax_revenue_candidate_table_2024.csv"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "france_tax"
+TABLE = DATA_DIR / "france_tax_revenue_candidate_table_2024.csv"
 
 EXPECTED_HEADERS = [
     "tax_name",
@@ -19,6 +24,7 @@ EXPECTED_HEADERS = [
 
 
 def source_family(row):
+    # A Cour tax whose 2024 yield we took from the 2025 budget papers ("Projet de loi") still counts as Cour.
     if row["source_for_data"].startswith("Eurostat"):
         return "Eurostat"
     if row["source_for_data"].startswith("Cour") or row["source_for_data"].startswith("Projet de loi"):
@@ -57,6 +63,7 @@ def main():
     if family_counts != {"Eurostat": 112, "Cour": 244, "Other": 0}:
         raise SystemExit(f"Unexpected source-family counts: {family_counts}")
 
+    # Cour taxes with no 2024 yield and no usable 2019 yield to uprate.
     missing_revenue = [row for row in rows if not row["revenue_eur"]]
     if len(missing_revenue) != 95:
         raise SystemExit(f"Unexpected missing-revenue count: {len(missing_revenue)}")
@@ -84,6 +91,7 @@ def main():
     )
     all_row_total = sum(int(row["revenue_eur"]) for row in rows if row["revenue_eur"])
 
+    # The overlap row cancels the Cour rows, so the whole file sums to the Eurostat total.
     if eurostat_total != 1_321_460_000_000:
         raise SystemExit(f"Unexpected Eurostat net total: {eurostat_total}")
     if cour_known_total != 7_225_124_488:

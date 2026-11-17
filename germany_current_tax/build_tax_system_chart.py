@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Tax Policy Associates Ltd
+# SPDX-License-Identifier: MIT
+"""Build the sunburst chart of the German tax system, reading germany_tax_revenue_layered_2024.csv and writing an ECharts spec to germany_tax_system_sunburst_2024.json."""
 import csv
 import html
 import json
@@ -7,13 +10,16 @@ from pathlib import Path
 
 
 BASE = Path(__file__).resolve().parent
-DATA_DIR = BASE / "data"
+# Data sits beside the script in the public repo, and in code/data in our working repo.
+DATA_DIR = BASE / "data" if (BASE / "data").is_dir() else BASE.parent / "data" / "germany_tax"
 INPUT = DATA_DIR / "germany_tax_revenue_layered_2024.csv"
 OUTPUT = DATA_DIR / "germany_tax_system_sunburst_2024.json"
 
-GDP_EUR = 4_305_300_000_000
+GDP_EUR = 4_305_300_000_000  # Germany's 2024 GDP
 ROOT_NAME = "All German taxes"
+# Smaller slices are unlabelled unless listed in FORCE_LABELS.
 LABEL_THRESHOLD_EUR = 250_000_000
+# End slices this size or smaller are padded out towards the rim (see pad_small_terminal_nodes).
 VISUAL_PAD_THRESHOLD_EUR = 1_000_000_000
 VISUAL_PAD_MAX_DEPTH = 5
 
@@ -59,7 +65,7 @@ CHILD_COLORS = {
 }
 
 ITEM_COLORS = {
-    # Keep high-profile analogous slices visually consistent with the France chart.
+    # Match the colours of the equivalent slices in the France chart.
     "VAT": "#F76707",
     "Social contributions": "#3FBAC2",
     "Personal income taxes": "#0A9396",
@@ -122,6 +128,7 @@ def format_tax_pct(value_eur, total_eur):
 
 
 def label_for_color(color):
+    # White text on dark slices, dark text on light ones.
     color = color.lstrip("#")
     r, g, b = (int(color[i:i + 2], 16) for i in (0, 2, 4))
     luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
@@ -246,6 +253,8 @@ def aggregate(item):
 
 
 def prune_single_child_groups(item):
+    # Collapse groups with only one child, so one tax isn't drawn as a stack of identical
+    # rings. Top-level layers always stay.
     if "children" not in item:
         return item
     children = [prune_single_child_groups(child) for child in item["children"]]
@@ -267,6 +276,7 @@ def prune_single_child_groups(item):
     if "children" in child:
         item["children"] = child["children"]
         return prune_single_child_groups(item)
+    # A lone tax with a different name replaces its group. (The France chart keeps the group.)
     return child
 
 
@@ -300,6 +310,7 @@ def apply_layout_values(items, mode, total_eur=None):
         if "children" in item:
             apply_layout_values(item["children"], mode, total_eur)
             child_total = sum(child["layout_eur"] for child in item["children"])
+        # A slice must be at least as big as its children for the rings to nest.
         item["layout_eur"] = max(item["actual_eur"], child_total, 0)
         if mode == "gdp":
             item["value"] = item["layout_eur"] / GDP_EUR * 100
@@ -370,8 +381,8 @@ def root_tooltip(data, mode):
 def build_option():
     data = make_tree(read_rows())
     apply_colors(data, TOP_COLORS)
-    # Visual-only: extend tiny terminal slices radially with hidden same-value
-    # children. This does not change their angle, totals or tooltip values.
+    # Purely visual: small end slices get hidden children of the same value so they reach
+    # further out. Their angles, totals and tooltips don't change.
     pad_small_terminal_nodes(data)
     apply_layout_values(data, "money")
     apply_display_labels(data, "money")
@@ -414,8 +425,10 @@ def build_option():
     return {
         "backgroundColor": "#ffffff",
         "color": TOP_COLORS,
+        # Not an ECharts option: read by the page that embeds the chart.
         "_tpaSunburstLeafClickParent": True,
         "baseOption": {
+            # The timeline is a three-way switch between €bn, % of GDP and % of all tax.
             "timeline": {
                 "axisType": "category",
                 "bottom": 18,
